@@ -7,7 +7,10 @@ public class State {
     private String stateName;
     private BigDecimal taxRate;
 
-    // constructor??
+    public State (String stateName, BigDecimal taxRate) {
+        this.stateName = stateName;
+        this.taxRate = taxRate;
+    }
     public void setStateAbbreviation(String stateAbbreviation) {
         this.stateAbbreviation = stateAbbreviation;
     }
