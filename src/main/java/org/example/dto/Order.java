@@ -29,7 +29,13 @@ public class Order {
         product = new Product(productType, costPerSquareFoot, laborCostPerSquareFoot, materialCost, laborCost);
 
     }
-    public Order(int orderNumber, String newCustomerName, String newState, String newProductType, BigDecimal newArea, LocalDate date) {
+    public Order(String newCustomerName, String newState, String newProductType, BigDecimal newArea, LocalDate date) {
+        this.date=date;
+        this.customerName = newCustomerName;
+        this.area = newArea;
+
+        state = new State(newState);
+        product = new Product(newProductType);
     }
 
     public void setOrderNumber(int orderNumber) {

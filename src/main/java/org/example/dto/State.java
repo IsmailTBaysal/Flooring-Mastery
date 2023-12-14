@@ -11,6 +11,9 @@ public class State {
         this.stateName = stateName;
         this.taxRate = taxRate;
     }
+    public State(String stateName) {
+        this.stateName = stateName;
+    }
     public void setStateAbbreviation(String stateAbbreviation) {
         this.stateAbbreviation = stateAbbreviation;
     }
