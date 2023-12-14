@@ -147,7 +147,7 @@ public class FlooringController {
     }
 
     private void displayOrders(){
-    List<Order> orderList = service.getAllOrders(view.getDate());
+    List<Order> orderList = service.getOrders(view.getDate());
     view.displayOrderList(orderList);
     }
 
