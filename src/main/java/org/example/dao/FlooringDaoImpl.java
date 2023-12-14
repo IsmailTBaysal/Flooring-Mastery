@@ -33,9 +33,13 @@ public class FlooringDaoImpl implements FlooringDao{
     public void editOrder(LocalDate date, Order order) {
         //readFileOrder(date);
         if(orderMap.containsKey(date)) {
-            ArrayList<Order> adding = orderMap.get(date);
-            adding.add(order);
-            orderMap.replace(date, adding);
+            ArrayList<Order> editList = orderMap.get(date);
+            for(int i = 0; i < editList.size(); i++) {
+                if(editList.get(i).getOrderNumber() == order.getOrderNumber()) {
+                    editList.set(i, order);
+                }
+            }
+            orderMap.replace(date, editList);
             return;
         }
         else {
