@@ -84,7 +84,7 @@ public class FlooringController {
         int orderNumber = view.getOrderNumber();
         view.displayOrder(service.getOrder(orderNumber, date));
         if (view.getConfirmation()){ // Order will be deleted after user confirms
-            service.removeOrder(orderNumber);
+            service.removeOrder(orderNumber, date);
             view.displayRemoveSuccessBanner();
         }else {
             view.displayRemoveCanceledBanner();
@@ -135,6 +135,11 @@ public class FlooringController {
         boolean hasErrors = false;
         do {
             Order currentOrder = view.getNewOrderInfo();
+
+            /*
+            * set unique order number here (order number will be generated in the service layer)
+            * */
+
             try {
                 service.createOrder(currentOrder);
                 view.displayCreateOrderSuccessBanner();

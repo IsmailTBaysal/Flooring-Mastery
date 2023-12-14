@@ -42,8 +42,13 @@ public class FlooringServiceImpl implements FlooringService{
     }
 
     @Override
-    public void removeOrder(int orderNumber) {
-
+    public void removeOrder(int orderNumber, LocalDate date) {
+        List<Order> orderList = dao.getOrders(date);
+        for (Order i : orderList){
+            if (i.getOrderNumber() == orderNumber){
+                dao.removeOrder(date,orderNumber);
+            }
+        }
     }
 
     @Override
@@ -53,11 +58,24 @@ public class FlooringServiceImpl implements FlooringService{
 
     @Override
     public void editOrder(Order order) {
-
+        dao.editOrder(order.getDate(), order);
     }
 
     @Override
-    public void createOrder(Order order) {
+    public void createOrder(Order order) throws FlooringDuplicateOrderException {
+        List<Order> orderList = dao.getOrders(order.getDate());
+        for (Order i : orderList){
+            if (i.getOrderNumber() == order.getOrderNumber()){
+                throw new FlooringDuplicateOrderException(
+                        "ERROR: Could not create order.  Order number "
+                                + order.getOrderNumber()
+                                + " already exists");
+            }
+
+            validateOrderData(order);
+            dao.addOrder(order);
+            }
+
 
     }
 

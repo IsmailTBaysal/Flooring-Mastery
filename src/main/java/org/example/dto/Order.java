@@ -8,7 +8,6 @@ public class Order {
     private String customerName;
     private BigDecimal area;
     private Product product;
-
     private State state;
     private BigDecimal tax;
     private BigDecimal total;
