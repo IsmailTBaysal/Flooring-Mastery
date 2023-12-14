@@ -81,6 +81,7 @@ public class FlooringDaoImpl implements FlooringDao{
 
     @Override
     public State getState(String stateName) {
+        readFileState();
         return stateMap.get(stateName);
     }
 
@@ -91,6 +92,7 @@ public class FlooringDaoImpl implements FlooringDao{
 
     @Override
     public Product getProduct(String productName) {
+        readFileProduct();
         return productMap.get(productName);
     }
 
@@ -228,8 +230,10 @@ public class FlooringDaoImpl implements FlooringDao{
                 String[] productArray = scan.nextLine().split(",");
                 if(productArray.length >= 3) {
 
-                    //Product temp = new Product(productArray[0], new BigDecimal(productArray[1]), new BigDecimal(productArray[2]));
-                   // productMap.put(productArray[1], temp);
+                    Product temp = new Product(productArray[0]);
+                    temp.setCostPerSquareFoot(new BigDecimal(productArray[1]));
+                    temp.setLaborCost((new BigDecimal(productArray[2])));
+                    productMap.put(productArray[1], temp);
                 }
 
             }
