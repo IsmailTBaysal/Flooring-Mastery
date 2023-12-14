@@ -27,6 +27,8 @@ public class Order {
         this.date = date;
 
     }
+    public Order(int orderNumber, String newCustomerName, String newState, String newProductType, BigDecimal newArea, LocalDate date) {
+    }
 
     public void setOrderNumber(int orderNumber) {
         this.orderNumber = orderNumber;
