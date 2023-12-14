@@ -13,6 +13,20 @@ public class Order {
     private BigDecimal tax;
     private BigDecimal total;
     private LocalDate date;
+    public Order() {
+
+    }
+    public Order(int orderNumber, String customerName, String State, BigDecimal taxRate, String productType,
+                 BigDecimal area, BigDecimal costPerSquareFoot , BigDecimal laborCostPerSquareFoot ,
+                 BigDecimal materialCost, BigDecimal laborCost, BigDecimal tax, BigDecimal total, LocalDate date) {
+        this.orderNumber = orderNumber;
+        this.customerName = customerName;
+        this.area = area;
+        this.tax = tax;
+        this.total = total;
+        this.date = date;
+
+    }
 
     public void setOrderNumber(int orderNumber) {
         this.orderNumber = orderNumber;
