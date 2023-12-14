@@ -24,22 +24,21 @@ public class FlooringView {
         return io.readInt("Please select from the above choices.", 1, 6);
     }
 
-   /* public Order getNewOrderInfo() {
-        // get new order date in the future, must read txt file if it exists
-        LocalDate orderDate = LocalDate.parse(io.readString("Please enter order date: ")); // where would we retrieve Order# ?
-
+    public Order getNewOrderInfo() {
+        LocalDate orderDate = LocalDate.parse(io.readString("Please enter order date: "));
         String customerName = io.readString("Please enter customer name: ");
         String state = io.readString("Please enter state: ");
         String productType = io.readString("Please enter product type: ");
         BigDecimal area = io.readBigDecimal("Please enter area: ");
 
-        Order currentOrder = new Order(orderDate);
+        Order currentOrder = new Order(customerName, state, productType, area, orderDate);
         currentOrder.setCustomerName(customerName); 
-        currentOrder.setState(state);
-        currentOrder.setProduct(productType);
+        currentOrder.setState(state); // need to fix
+        currentOrder.setProduct(productType); // need to fix
         currentOrder.setArea(area);
+        currentOrder.setDate(orderDate);
         return currentOrder;
-    } */
+    }
 
     public void displayCreateOrderBanner() {
         io.print("=== Create Order ===");
