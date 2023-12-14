@@ -1,6 +1,7 @@
 package org.example.ui;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class UserIOImpl implements UserIO{
@@ -46,9 +47,20 @@ public class UserIOImpl implements UserIO{
     public BigDecimal readBigDecimal(String msgPrompt) {
         while (true) {
             try {
-                return console.nextBigDecimal();
+                return new BigDecimal(this.readString(msgPrompt));
             } catch (NumberFormatException e) {
                 this.print("Input error. Please try again.");
+            }
+        }
+    }
+
+    @Override
+    public LocalDate readLocalDate(String msgPrompt) {
+        while (true) {
+            try {
+                return LocalDate.parse(this.readString(msgPrompt));
+            } catch (Exception e) {
+                System.out.println("Input error. Please try again.");
             }
         }
     }
