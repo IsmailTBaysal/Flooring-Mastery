@@ -11,6 +11,14 @@ public class Product {
     private BigDecimal MaterialCost;
     private BigDecimal LaborCost;
 
+    public Product(String productType, BigDecimal costPerSquareFoot, BigDecimal laborCostPerSquareFoot, BigDecimal materialCost, BigDecimal laborCost) {
+        ProductType = productType;
+        CostPerSquareFoot = costPerSquareFoot;
+        LaborCostPerSquareFoot = laborCostPerSquareFoot;
+        MaterialCost = materialCost;
+        LaborCost = laborCost;
+    }
+
     public String getProductType() {
         return ProductType;
     }
