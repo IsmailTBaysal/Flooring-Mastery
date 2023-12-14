@@ -4,10 +4,7 @@ import org.example.dto.Order;
 import org.example.dto.Product;
 import org.example.dto.State;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -19,37 +16,53 @@ public class FlooringDaoImpl implements FlooringDao{
     private Map<String, Product> productMap = new HashMap<>();
     @Override
     public void addOrder(Order order) {
+        //readFileOrder(order.getDate());
         if(orderMap.containsKey(order.getDate())) {
             ArrayList<Order> adding = orderMap.get(order.getDate());
             adding.add(order);
             orderMap.replace(order.getDate(), adding);
-            return;
+        } else {
+            orderMap.put(order.getDate(), new ArrayList<Order>() {{
+                add(order);
+            }});
         }
-        orderMap.put(order.getDate(), new ArrayList<Order>(){{add(order);}});
+        //writeFileOrder(order.getDate());
     }
 
     @Override
     public void editOrder(LocalDate date, Order order) {
+        //readFileOrder(date);
         if(orderMap.containsKey(date)) {
-            ArrayList<Order> adding = orderMap.get(date);
-            adding.add(order);
-            orderMap.replace(date, adding);
+            ArrayList<Order> editList = orderMap.get(date);
+            for(int i = 0; i < editList.size(); i++) {
+                if(editList.get(i).getOrderNumber() == order.getOrderNumber()) {
+                    editList.set(i, order);
+                }
+            }
+            orderMap.replace(date, editList);
             return;
         }
+        else {
+            System.out.println("No order found");
+        }
+       // writeFileOrder(order.getDate());
     }
 
     @Override
     public List<Order> getOrders(LocalDate date) {
+        //readFileOrder(date);
         return orderMap.get(date);
     }
 
     @Override
     public Order removeOrder(LocalDate date, int orderNum) {
+        //readFileOrder(date);
         ArrayList<Order> checkForRemoval = orderMap.get(date);
         for(Order o: checkForRemoval) {
             if(o.getOrderNumber() == orderNum) {
                 checkForRemoval.remove(o);
                 orderMap.replace(date, checkForRemoval);
+                //writeFileOrder(date);
                 return o;
             }
         }
@@ -94,17 +107,40 @@ public class FlooringDaoImpl implements FlooringDao{
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMddyyyy");
             String fileName = "Orders_" + date.format(formatter) + ".txt";
+            //Check if file exists
+            if(!(new File(fileName).exists())) {
+                return;
+            }
+            //reads file
             FileReader read = new FileReader(fileName);
             BufferedReader buffer = new BufferedReader(read);
             Scanner scan = new Scanner(buffer);
+            /*
+            OrderNumber – Integer
+            CustomerName – String
+            State – String
+            TaxRate – BigDecimal
+            ProductType – String
+            Area – BigDecimal
+            CostPerSquareFoot – BigDecimal
+            LaborCostPerSquareFoot – BigDecimal
+            MaterialCost – BigDecimal
+            LaborCost – BigDecimal
+            Tax – BigDecimal
+            Total – BigDecimal
+             */
+            ArrayList<Order> tempArrayList = new ArrayList<>();
             while(scan.hasNextLine()) {
+                //seperate variables based on ,
                 String[] orderArray = scan.nextLine().split(",");
                 if(orderArray.length >= 12) {
                     Order temp = new Order(Integer.parseInt(orderArray[0]), orderArray[1], orderArray[2], new BigDecimal(orderArray[3]), orderArray[4],
                             new BigDecimal(orderArray[5]), new BigDecimal(orderArray[6]), new BigDecimal(orderArray[7]), new BigDecimal(orderArray[8]),
                             new BigDecimal(orderArray[9]), new BigDecimal(orderArray[10]), new BigDecimal(orderArray[11]), date);
+                    tempArrayList.add(temp);
                 }
             }
+            orderMap.put(date, tempArrayList);
         }catch (Exception e) {
             System.out.println("Error trying to read file order");
         }
@@ -116,22 +152,90 @@ public class FlooringDaoImpl implements FlooringDao{
         try {
             FileWriter fileWriter = new FileWriter(fileName);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
-            //Example input bufferedWriter.write("John::Doe::123 Main Street Hometown, OH, 12345");
-
+            /*
+            OrderNumber – Integer
+            CustomerName – String
+            State – String
+            TaxRate – BigDecimal
+            ProductType – String
+            Area – BigDecimal
+            CostPerSquareFoot – BigDecimal
+            LaborCostPerSquareFoot – BigDecimal
+            MaterialCost – BigDecimal
+            LaborCost – BigDecimal
+            Tax – BigDecimal
+            Total – BigDecimal
+             */
             List<Order> orderList = orderMap.get(date);
-            for(Order o : orderList) {
-                /*
-                Need finishing touches for getting state info and product info
-                 */
-                String writingOut = o.getOrderNumber() + "," + o.getCustomerName() + "," + o.getState();
-                bufferedWriter.write(writingOut);
-                bufferedWriter.newLine();
+            if(!orderList.isEmpty()) {
+                for(Order o : orderList) {
+                    String writingOut = o.getOrderNumber() + "," + o.getCustomerName() + "," + o.getState().getStateName() + "," + o.getState().getTaxRate()
+                            + "," + o.getProduct().getProductType() + "," + o.getArea() + "," + o.getProduct().getCostPerSquareFoot() + ","
+                            + o.getProduct().getLaborCostPerSquareFoot() + "," + o.getProduct().getMaterialCost() + "," + o.getProduct().getLaborCost() + ","
+                            + o.getTax() + "," + o.getTotal();
+                    bufferedWriter.write(writingOut);
+                    bufferedWriter.newLine();
+                }
+            }
+            else {
+                bufferedWriter.write("");
             }
             bufferedWriter.flush();
             bufferedWriter.close();
         } catch (Exception e) {
             System.out.println("Error writing file");
         }
+    }
+
+    public void readFileState () {
+        try {
+            //reads file
+            FileReader read = new FileReader("Taxes.txt");
+            BufferedReader buffer = new BufferedReader(read);
+            Scanner scan = new Scanner(buffer);
+            /*
+            StateAbbreviation – String
+            StateName – String
+            TaxRate – BigDecimal
+             */
+            while(scan.hasNextLine()) {
+                //seperate variables based on ,
+                String[] stateArray = scan.nextLine().split(",");
+                if(stateArray.length >= 3) {
+                    State temp = new State(stateArray[1], new BigDecimal(stateArray[2]));
+                    stateMap.put(stateArray[1], temp);
+                }
+
+            }
+        }catch (Exception e) {
+            System.out.println("Error trying to read file state");
+        }
+    }
+
+    public void readFileProduct() {
+        try {
+            //reads file
+            FileReader read = new FileReader("Products.txt");
+            BufferedReader buffer = new BufferedReader(read);
+            Scanner scan = new Scanner(buffer);
+            /*
+                ProductType – String
+                CostPerSquareFoot – BigDecimal
+                LaborCostPerSquareFoot – BigDecimal
+             */
+            while(scan.hasNextLine()) {
+                //seperate variables based on ,
+                String[] productArray = scan.nextLine().split(",");
+                if(productArray.length >= 3) {
+
+                    //Product temp = new Product(productArray[0], new BigDecimal(productArray[1]), new BigDecimal(productArray[2]));
+                   // productMap.put(productArray[1], temp);
+                }
+
+            }
+        }catch (Exception e) {
+            System.out.println("Error trying to read file product");
+        }
+
     }
 }

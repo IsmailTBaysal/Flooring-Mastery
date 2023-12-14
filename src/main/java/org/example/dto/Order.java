@@ -16,7 +16,7 @@ public class Order {
     public Order() {
 
     }
-    public Order(int orderNumber, String customerName, String State, BigDecimal taxRate, String productType,
+    public Order(int orderNumber, String customerName, String stateName, BigDecimal taxRate, String productType,
                  BigDecimal area, BigDecimal costPerSquareFoot , BigDecimal laborCostPerSquareFoot ,
                  BigDecimal materialCost, BigDecimal laborCost, BigDecimal tax, BigDecimal total, LocalDate date) {
         this.orderNumber = orderNumber;
@@ -25,7 +25,17 @@ public class Order {
         this.tax = tax;
         this.total = total;
         this.date = date;
+        state = new State(stateName, taxRate);
+        product = new Product(productType, costPerSquareFoot, laborCostPerSquareFoot, materialCost, laborCost);
 
+    }
+    public Order(String newCustomerName, String newState, String newProductType, BigDecimal newArea, LocalDate date) {
+        this.date=date;
+        this.customerName = newCustomerName;
+        this.area = newArea;
+
+        state = new State(newState);
+        product = new Product(newProductType);
     }
 
     public void setOrderNumber(int orderNumber) {
