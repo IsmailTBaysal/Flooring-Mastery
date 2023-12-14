@@ -22,7 +22,6 @@ public class FlooringView {
 
         return io.readInt("Please select from the above choices.", 1, 6);
     }
-    /*
     public Order getNewOrderInfo() {
         LocalDate orderDate = LocalDate.parse(io.readString("Please enter order date: ")); // where would we retrieve Order# ?
         //int orderNumber = io.readInt("Please enter Order Number: ");
@@ -38,7 +37,7 @@ public class FlooringView {
         currentOrder.setArea(area);
         return currentOrder;
     }
-     */
+
 
     public void displayCreateOrderBanner() {
         io.print("=== Create Order ===");
