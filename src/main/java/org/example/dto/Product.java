@@ -18,6 +18,9 @@ public class Product {
         MaterialCost = materialCost;
         LaborCost = laborCost;
     }
+    public Product(String productType) {
+        ProductType = productType;
+    }
 
     public String getProductType() {
         return ProductType;
