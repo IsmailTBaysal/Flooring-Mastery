@@ -29,6 +29,8 @@ public class Order {
         product = new Product(productType, costPerSquareFoot, laborCostPerSquareFoot, materialCost, laborCost);
 
     }
+    public Order(int orderNumber, String newCustomerName, String newState, String newProductType, BigDecimal newArea, LocalDate date) {
+    }
 
     public void setOrderNumber(int orderNumber) {
         this.orderNumber = orderNumber;
