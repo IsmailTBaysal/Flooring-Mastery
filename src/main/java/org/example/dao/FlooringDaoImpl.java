@@ -248,6 +248,33 @@ public class FlooringDaoImpl implements FlooringDao{
         }catch (Exception e) {
             System.out.println("Error trying to read file product");
         }
+    }
 
+
+    public void ExportAll() {
+        String fileName = "";
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter(fileName);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            List<Order> exportList = getAllOrder();
+            if(!exportList.isEmpty()) {
+                for(Order o : exportList) {
+                    String writingOut = o.getOrderNumber() + "," + o.getCustomerName() + "," + o.getState().getStateName() + "," + o.getState().getTaxRate()
+                            + "," + o.getProduct().getProductType() + "," + o.getArea() + "," + o.getProduct().getCostPerSquareFoot() + ","
+                            + o.getProduct().getLaborCostPerSquareFoot() + "," + o.getProduct().getMaterialCost() + "," + o.getProduct().getLaborCost() + ","
+                            + o.getTax() + "," + o.getTotal();
+                    bufferedWriter.write(writingOut);
+                    bufferedWriter.newLine();
+                }
+            }
+            else {
+                bufferedWriter.write("");
+            }
+            bufferedWriter.flush();
+            bufferedWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
