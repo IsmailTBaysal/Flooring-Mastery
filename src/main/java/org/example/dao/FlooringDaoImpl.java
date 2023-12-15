@@ -162,22 +162,6 @@ public class FlooringDaoImpl implements FlooringDao{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMddyyyy");
         String fileName = "Orders/Orders_" + date.format(formatter) + ".txt";
         try {
-            File myObj = new File(fileName);
-            if(myObj.createNewFile()) {
-
-            }
-            else {
-                System.out.println("Error creating File");
-            }
-        } catch(IOException e) {
-            System.out.println("Error writeFileOrderNotExist file creation");
-        }
-    }
-
-    public void writeFileOrderExist(LocalDate date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMddyyyy");
-        String fileName = "Orders/Orders_" + date.format(formatter) + ".txt";
-        try {
             FileWriter fileWriter = new FileWriter(fileName);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             /*
