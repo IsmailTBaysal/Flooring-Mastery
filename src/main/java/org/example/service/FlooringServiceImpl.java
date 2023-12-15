@@ -123,7 +123,9 @@ public class FlooringServiceImpl implements FlooringService{
                                     + order.getOrderNumber()
                                     + " already exists");
                 }
+
             }
+
         }
 
         // Getting Product and State details from database here:
@@ -145,7 +147,6 @@ public class FlooringServiceImpl implements FlooringService{
         validateOrderData(order);
 
         dao.addOrder(order);
-
     }
 
     @Override
