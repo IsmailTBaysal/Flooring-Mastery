@@ -94,27 +94,27 @@ public class FlooringServiceImpl implements FlooringService{
     @Override
     public void createOrder(Order order) throws FlooringDuplicateOrderException, FlooringDataValidationException {
 
+
+        if (dao.getOrders(order.getDate())!= null){
         // Checking if there is duplicate order
         List<Order> orderList = dao.getOrders(order.getDate());
-        for (Order i : orderList){
-            if (i.getOrderNumber() == order.getOrderNumber()){
+        for (Order i : orderList) {
+            if (i.getOrderNumber() == order.getOrderNumber()) {
                 throw new FlooringDuplicateOrderException(
                         "ERROR: Could not create order.  Order number "
                                 + order.getOrderNumber()
                                 + " already exists");
             }
+        }
+        // Getting Product and State details from database here:
+        Product product = dao.getProduct(order.getProduct().getProductType());
+        order.setProduct(product);
+        State state = dao.getState(order.getState().getStateName());
+        order.setState(state);
 
-            // Getting Product and State details from database here:
-            Product product = dao.getProduct(order.getProduct().getProductType());
-            order.setProduct(product);
-            State state = dao.getState(order.getState().getStateName());
-            order.setState(state);
-
-            validateOrderData(order);
-            dao.addOrder(order);
-            }
-
-
+        validateOrderData(order);
+        dao.addOrder(order);
+        }
     }
 
     @Override
@@ -131,8 +131,14 @@ public class FlooringServiceImpl implements FlooringService{
 
     @Override
     public int generateUniqueOrderNumber(LocalDate date) {
-        int lastUsedOrderNumber = getOrders(date).size(); // Getting the list of orders in a day to find last order number.
-        lastUsedOrderNumber++;
-        return lastUsedOrderNumber;
+        int lastUsedOrderNumber;
+        if (getOrders(date) ==null){
+            lastUsedOrderNumber =0;
+            return lastUsedOrderNumber;
+      }else {
+            lastUsedOrderNumber = getOrders(date).size(); // Getting the list of orders in a day to find last order number.
+            lastUsedOrderNumber++;
+            return lastUsedOrderNumber;
+        }
     }
 }

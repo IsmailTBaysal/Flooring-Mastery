@@ -3,6 +3,7 @@
 package org.example.controller;
 
 import org.example.dto.Order;
+import org.example.service.FlooringDataValidationException;
 import org.example.service.FlooringDuplicateOrderException;
 import org.example.service.FlooringService;
 import org.example.ui.FlooringView;
@@ -149,10 +150,13 @@ public class FlooringController {
                 service.createOrder(currentOrder);
                 view.displayCreateOrderSuccessBanner();
                 hasErrors = false;
-            }catch (Exception e){
+            }
+            /*catch (Exception e){
                 hasErrors = true;
                 view.displayErrorMessage(e.getMessage());
-            } catch (FlooringDuplicateOrderException e) {
+            }
+            */catch (FlooringDuplicateOrderException | FlooringDataValidationException e) {
+
                 throw new RuntimeException(e);
             }
         }while(hasErrors);
