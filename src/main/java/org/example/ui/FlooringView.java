@@ -1,6 +1,8 @@
 package org.example.ui;
 
 import org.example.dto.Order;
+import org.example.dto.Product;
+import org.example.dto.State;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -31,10 +33,13 @@ public class FlooringView {
         String productType = io.readString("Please enter product type: ");
         BigDecimal area = io.readBigDecimal("Please enter area: ");
 
+        State orderState = new State(state);
+        Product orderProductType = new Product(productType);
+
         Order currentOrder = new Order(customerName, state, productType, area, orderDate);
         currentOrder.setCustomerName(customerName); 
-        currentOrder.setState(state); // need to fix
-        currentOrder.setProduct(productType); // need to fix
+        currentOrder.setState(orderState);
+        currentOrder.setProduct(orderProductType);
         currentOrder.setArea(area);
         currentOrder.setDate(orderDate);
         return currentOrder;
