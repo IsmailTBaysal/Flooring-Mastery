@@ -112,7 +112,7 @@ public class FlooringController {
             Order updatedOrder = new Order(orderNumber,newCustomerName,newState,newProductType,newArea, date);
 
             // Calculate the order if state, product type, or area are changed
-            if (!existingOrder.getState().equalsIgnoreCase(newState)
+            if (!existingOrder.getState().getStateName().equalsIgnoreCase(newState)
                     || !existingOrder.getProductType().equalsIgnoreCase(newProductType)
                     || !existingOrder.getArea().equals(newArea)) {
                 updatedOrder = service.calculateOrder(updatedOrder);

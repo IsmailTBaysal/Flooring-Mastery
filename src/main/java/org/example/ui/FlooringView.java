@@ -33,16 +33,7 @@ public class FlooringView {
         String productType = io.readString("Please enter product type: ");
         BigDecimal area = io.readBigDecimal("Please enter area: ");
 
-        State orderState = new State(state);
-        Product orderProductType = new Product(productType);
-
-        Order currentOrder = new Order(customerName, state, productType, area, orderDate);
-        currentOrder.setCustomerName(customerName); 
-        currentOrder.setState(orderState);
-        currentOrder.setProduct(orderProductType);
-        currentOrder.setArea(area);
-        currentOrder.setDate(orderDate);
-        return currentOrder;
+        return new Order(customerName, state, productType, area, orderDate);
     }
 
     public void displayCreateOrderBanner() {
