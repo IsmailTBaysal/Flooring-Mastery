@@ -56,8 +56,8 @@ public class FlooringView {
             io.print("Order date: " + order.getDate());
             io.print("Order number: " + order.getOrderNumber());
             io.print("Customer Name: " + order.getCustomerName());
-            io.print("State: " + order.getState());
-            io.print("Product type: " + order.getProduct());
+            io.print("State: " + order.getState().getStateName());
+            io.print("Product type: " + order.getProduct().getProductType());
             io.print("Area: " + order.getArea());
             io.print("Tax: " + order.getTax());
             io.print("Total: " + order.getTotal());

@@ -21,7 +21,7 @@ public class FlooringController {
         this.view =view;
     }
 
-    public void run() {
+    public void run() throws FlooringDataValidationException {
         boolean keepGoing = true;
         int menuSelection = 0;
         while (keepGoing) {
@@ -97,7 +97,7 @@ public class FlooringController {
         }
     }
 
-    private void editOrder() {
+    private void editOrder() throws FlooringDataValidationException {
         view.displayEditOrderBanner();
         LocalDate date = view.getDate();
         int orderNumber = view.getOrderNumber();
@@ -121,17 +121,14 @@ public class FlooringController {
             if (!existingOrder.getState().getStateName().equalsIgnoreCase(newState)
                     || !existingOrder.getProduct().getProductType().equalsIgnoreCase(newProductType)
                     || !existingOrder.getArea().equals(newArea)) {
-                updatedOrder = service.calculateOrder(updatedOrder);
-            }
+                view.displayOrder(updatedOrder);
+                if (view.getConfirmation()){
+                    service.editOrder(updatedOrder);
 
-            view.displayOrder(updatedOrder);
-
-            if (view.getConfirmation()){
-                service.editOrder(updatedOrder);
-
-                view.displayEditSuccessBanner();
-            }else {
-                view.displayEditCanceledBanner();
+                    view.displayEditSuccessBanner();
+                }else {
+                    view.displayEditCanceledBanner();
+                }
             }
             view.displayOrderNotFoundBanner();
         }

@@ -18,7 +18,7 @@ public interface FlooringService {
 
     Order calculateOrder(Order order);
 
-    void editOrder(Order order);
+    void editOrder(Order order) throws FlooringDataValidationException;
 
     void createOrder(Order order) throws FlooringDuplicateOrderException, FlooringDataValidationException;
 
