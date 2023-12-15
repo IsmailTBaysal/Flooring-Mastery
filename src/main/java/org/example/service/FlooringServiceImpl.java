@@ -105,7 +105,7 @@ public class FlooringServiceImpl implements FlooringService{
 
         calculateOrder(order);
 
-       validateOrderData(order);
+        validateOrderData(order);
 
         dao.editOrder(order.getDate(), order);
     }
