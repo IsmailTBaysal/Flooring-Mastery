@@ -3,14 +3,14 @@ package org.example.ui;
 import org.example.dto.Order;
 import org.example.dto.Product;
 import org.example.dto.State;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Locale;
+import java.util.Scanner;
 
 public class FlooringView {
     private UserIO io;
+    Scanner sc = new Scanner(System.in);
     public FlooringView(UserIO io) { // constructor
         this.io = io;
     }
@@ -108,12 +108,10 @@ public class FlooringView {
         io.readString("Please hit enter to continue.");
     }
     public LocalDate getDate() {
-        LocalDate currentDate = io.readLocalDate("Please enter order date: ");
-        return currentDate;
+        return io.readLocalDate("Please enter order date: ");
     }
     public int getOrderNumber() {
-        int currentOrderNumber = io.readInt("Please enter order number: ");
-        return currentOrderNumber;
+        return io.readInt("Please enter order number: ");
     }
     public void displayRemoveCanceledBanner() { io.print("=== Remove Order ==="); }
     public void displayCreateOrderSuccessBanner() {
@@ -121,5 +119,40 @@ public class FlooringView {
     }
     public void displayRemoveOrderSuccessBanner() {
         io.print("Order successfully removed. Please hit enter to continue.");
+    }
+    public void displayExportDataBanner() { io.print("=== All Existing Data ==="); }
+    public void displayExportSuccessBanner() {
+        io.print("Order successfully exported. Please hit enter to continue.");
+    }
+    public void displayExportFailureBanner() {
+        io.print("Order unsuccessfully exported. Please hit enter to continue.");
+    }
+    public void displayEditOrderBanner() { io.print("=== Edit Order ==="); }
+
+    public void displayEditSuccessBanner() {
+        io.print("Order successfully edited. Please hit enter to continue.");
+    }
+    public void displayEditCanceledBanner() {
+        io.print("Edit order was canceled. Please hit enter to continue.");
+    }
+    public void displayOrderNotFoundBanner() {
+        io.print("No order found.");
+    }
+    public boolean getConfirmation() {
+        io.readString("Place the order? (Y/N): ");
+        String result = sc.nextLine();
+        return result.equals("Y");
+    }
+    public String getUpdatedCustomerName(String currentCustomerName) {
+        return io.readString("Enter new customer name: ");
+    }
+    public String getUpdatedState(String currentCustomerName) {
+        return io.readString("Enter new state: ");
+    }
+    public String getUpdatedProductType(String currentCustomerName) {
+        return io.readString("Enter new product: ");
+    }
+    public BigDecimal getUpdatedArea(String currentCustomerName) {
+        return io.readBigDecimal("Enter new area: ");
     }
 }
