@@ -14,13 +14,13 @@ public interface FlooringService {
 
     Order getOrder(int orderNumber, LocalDate date);
 
-    void removeOrder(int orderNumber);
+    void removeOrder(int orderNumber, LocalDate date);
 
     Order calculateOrder(Order order);
 
     void editOrder(Order order);
 
-    void createOrder(Order order);
+    void createOrder(Order order) throws FlooringDuplicateOrderException;
 
     void validateOrderData(Order order);
 
