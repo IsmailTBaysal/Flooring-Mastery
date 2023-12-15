@@ -1,0 +1,271 @@
+[33mcommit e646c7c8f3047fd1645d43007cfcca162db7d811[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mKelvinBranch[m[33m)[m
+Merge: 6712506 605f617
+Author: kelveloper <kelvinsaldana98@gmail.com>
+Date:   Fri Dec 15 10:19:14 2023 -0500
+
+    Merge branch 'main' into KelvinBranch
+
+[33mcommit 671250649a2e53c1b0c9b74be25e952b6e19fd74[m[33m ([m[1;31morigin/KelvinBranch[m[33m)[m
+Author: kelveloper <kelvinsaldana98@gmail.com>
+Date:   Fri Dec 15 10:14:32 2023 -0500
+
+    Fixed getNewOrderInfo()
+
+[33mcommit 605f61754b998d030e03327873811a9e5204bbbe[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Merge: 609b1cf 3b7285d
+Author: kelveloper <kelvinsaldana98@gmail.com>
+Date:   Thu Dec 14 16:04:22 2023 -0500
+
+    need to fix getNewOrderInfo()
+
+[33mcommit 609b1cf891165790638baa3b376edefe9c465cdb[m
+Merge: 286517b 1466bf4
+Author: kelveloper <kelvinsaldana98@gmail.com>
+Date:   Thu Dec 14 16:03:38 2023 -0500
+
+    Merge branch 'KelvinBranch'
+
+[33mcommit 1466bf4e1ae171c12fb46c92ba38130a1484e94d[m
+Author: kelveloper <kelvinsaldana98@gmail.com>
+Date:   Thu Dec 14 16:02:53 2023 -0500
+
+    Third commit
+
+[33mcommit 3b7285d33470d3cf0a7efe8ab877a49d85a345d0[m
+Merge: 50e8dd6 0d3f136
+Author: IsmailTBaysal <95452815+IsmailTBaysal@users.noreply.github.com>
+Date:   Thu Dec 14 14:59:02 2023 -0600
+
+    Merge pull request #7 from IsmailTBaysal/ismail
+    
+    some parts completed in the service layer
+
+[33mcommit 286517bd45e97424c4d2b67d912fccaeb96c6802[m
+Merge: 13f5a7e 50e8dd6
+Author: kelveloper <kelvinsaldana98@gmail.com>
+Date:   Thu Dec 14 15:52:21 2023 -0500
+
+    second merge need to fix getNewOrderInfo()
+
+[33mcommit 0d3f136f79880274b77d601e9623a0f2a047a26c[m[33m ([m[1;31morigin/ismail[m[33m)[m
+Author: IsmailTBaysal <i.timucinbaysal@gmail.com>
+Date:   Thu Dec 14 14:45:57 2023 -0600
+
+    some parts completed in the service layer
+
+[33mcommit 50e8dd6febc746014a84599221a000f47255902d[m
+Merge: 3facdc7 88721c0
+Author: TheOptic57 <99238381+TheOptic57@users.noreply.github.com>
+Date:   Thu Dec 14 15:42:58 2023 -0500
+
+    Merge pull request #6 from IsmailTBaysal/CalebBranch
+    
+    Added constrction
+
+[33mcommit 88721c073217e1aef30a65019f7e385f6474ee80[m
+Author: TheOptic57 <thecalebzhou@gmail.com>
+Date:   Thu Dec 14 15:42:27 2023 -0500
+
+    Added constrction
+    
+    title
+
+[33mcommit 13f5a7eaaf5bd08ba56351107a5ccd29ace42963[m
+Merge: e09803f d529198
+Author: kelveloper <kelvinsaldana98@gmail.com>
+Date:   Thu Dec 14 15:26:35 2023 -0500
+
+    Second merge, need to complete getNewOrderInfo()
+
+[33mcommit d529198ff0b61c49ca454ad2542f215695df71d8[m
+Author: kelveloper <kelvinsaldana98@gmail.com>
+Date:   Thu Dec 14 15:23:24 2023 -0500
+
+    Completed UserIO and State class, need to work on View, getNewOrderInfo()
+
+[33mcommit 3facdc75afd5db486d99694e9d943ca5dd1be212[m
+Merge: fb3433e 0a0567e
+Author: IsmailTBaysal <95452815+IsmailTBaysal@users.noreply.github.com>
+Date:   Thu Dec 14 13:39:50 2023 -0600
+
+    Merge pull request #5 from IsmailTBaysal/ismail
+    
+    Ismail
+
+[33mcommit fb3433ebe950b760066850f77c7905c467074352[m
+Merge: e09803f 36aba10
+Author: IsmailTBaysal <95452815+IsmailTBaysal@users.noreply.github.com>
+Date:   Thu Dec 14 13:39:37 2023 -0600
+
+    Merge pull request #4 from IsmailTBaysal/CalebBranch
+    
+    Caleb branch
+
+[33mcommit 0a0567e2c5f707aec347f0ed3a8ea352e8b3f857[m
+Author: IsmailTBaysal <i.timucinbaysal@gmail.com>
+Date:   Thu Dec 14 13:37:23 2023 -0600
+
+    Controller completed 2
+
+[33mcommit 36aba106d3694f90a7962de7ef2e8ddb9353396a[m
+Author: TheOptic57 <thecalebzhou@gmail.com>
+Date:   Thu Dec 14 14:23:21 2023 -0500
+
+    fixed spacing in case of merge conflict
+    
+    title
+
+[33mcommit 73eff31095848c3a5c5864063ec6fdabc3d0ffae[m
+Author: TheOptic57 <thecalebzhou@gmail.com>
+Date:   Thu Dec 14 14:22:04 2023 -0500
+
+    Added more test cases
+    
+    title
+
+[33mcommit 38b25f4b4b1b024ca7e2627465010fcc64de51c6[m
+Author: IsmailTBaysal <i.timucinbaysal@gmail.com>
+Date:   Thu Dec 14 13:16:23 2023 -0600
+
+    Controller completed
+
+[33mcommit fe0637250d8a3d7679e7ddc624a69a2852633d50[m
+Author: TheOptic57 <thecalebzhou@gmail.com>
+Date:   Thu Dec 14 13:42:58 2023 -0500
+
+    Added TestCases and Fixed editorder
+    
+    title
+
+[33mcommit e56bd763268bfd2a4e43c6a547e31ee7dd26df4d[m
+Author: TheOptic57 <thecalebzhou@gmail.com>
+Date:   Thu Dec 14 12:43:42 2023 -0500
+
+    Changed Dao and Order
+    
+    made small edit to Order constructor
+    Dao added file read and write for all Order, Product, and Taxes(State).
+
+[33mcommit e09803fc8b83479bce4774a6ee7bb652bc7bf105[m
+Merge: 0f856d8 8e3ea38
+Author: kelveloper <kelvinsaldana98@gmail.com>
+Date:   Thu Dec 14 11:03:09 2023 -0500
+
+    Merge branch 'main' of https://github.com/IsmailTBaysal/Flooring-Mastery
+    Merge branch 'main' into KelvinBranch
+
+[33mcommit 8e3ea38a9fd50d4248510fb376d7658311b1d0a4[m
+Merge: 7c263f3 d1e9523
+Author: IsmailTBaysal <95452815+IsmailTBaysal@users.noreply.github.com>
+Date:   Thu Dec 14 10:01:41 2023 -0600
+
+    Merge pull request #3 from IsmailTBaysal/CalebBranch
+    
+    Caleb branch
+
+[33mcommit d1e9523d3bfcbd7a22f342e75c990f5457e68f90[m
+Merge: 264e6ae 7c263f3
+Author: TheOptic57 <thecalebzhou@gmail.com>
+Date:   Thu Dec 14 10:59:10 2023 -0500
+
+    Merge branch 'main' into CalebBranch
+
+[33mcommit 7c263f3a968392587baea583be0cba734bb8c40f[m
+Merge: 285a6e5 13b7229
+Author: IsmailTBaysal <95452815+IsmailTBaysal@users.noreply.github.com>
+Date:   Thu Dec 14 09:55:56 2023 -0600
+
+    Merge pull request #2 from IsmailTBaysal/ismailb
+    
+    Ismailb
+
+[33mcommit 264e6ae720eb5abe69cd1b3837f8c768bd4c5efb[m
+Merge: 42ea457 285a6e5
+Author: TheOptic57 <thecalebzhou@gmail.com>
+Date:   Thu Dec 14 10:55:00 2023 -0500
+
+    Merge branch 'main' into CalebBranch
+
+[33mcommit 0f856d85d24aea043526ef452b204972fbb8dc9c[m
+Author: kelveloper <kelvinsaldana98@gmail.com>
+Date:   Thu Dec 14 10:52:54 2023 -0500
+
+    Added state constructor
+
+[33mcommit 13b7229e1109ce063c52ebaaa7f3b27f1c197f94[m[33m ([m[1;31morigin/ismailb[m[33m)[m
+Author: IsmailTBaysal <i.timucinbaysal@gmail.com>
+Date:   Thu Dec 14 09:50:10 2023 -0600
+
+    Product created2
+
+[33mcommit 6cea202c49093c852cb8c20c4a3ce8a424e24609[m
+Author: IsmailTBaysal <i.timucinbaysal@gmail.com>
+Date:   Thu Dec 14 09:48:31 2023 -0600
+
+    Product created
+
+[33mcommit 42ea457220e083619992866588f27ba2cb2e004a[m
+Author: TheOptic57 <thecalebzhou@gmail.com>
+Date:   Thu Dec 14 10:42:44 2023 -0500
+
+    Changed Dao and Order
+    
+    Added some changes to Dao and Order
+
+[33mcommit 285a6e57f12909b28f976e237d8c03a0b6223e83[m
+Merge: c923523 62791fd
+Author: IsmailTBaysal <95452815+IsmailTBaysal@users.noreply.github.com>
+Date:   Thu Dec 14 09:32:25 2023 -0600
+
+    Merge pull request #1 from IsmailTBaysal/ismail
+    
+    commit1
+
+[33mcommit 62791fd635c3a1d8f514a9cf7b29930f8532b69a[m
+Author: IsmailTBaysal <i.timucinbaysal@gmail.com>
+Date:   Thu Dec 14 09:25:01 2023 -0600
+
+    commit1
+
+[33mcommit 6f77a070cf76e7c9ab8ccf6ed497cc1a19a10d7e[m
+Author: kelveloper <kelvinsaldana98@gmail.com>
+Date:   Thu Dec 14 02:09:19 2023 -0500
+
+    First iteration created by Kelvin
+
+[33mcommit e12e96c044b79094cd6fbce4ef60f1951b2f49aa[m
+Author: TheOptic57 <thecalebzhou@gmail.com>
+Date:   Wed Dec 13 20:39:58 2023 -0500
+
+    Changed FlooringDao and FlooringDaoImpl
+    
+    Made a small error in the interface and corrected it.
+    Started on Implementing the Dao and left editing blank. Probably going to make some ajustments
+
+[33mcommit f5e0db65dbe8405044782435dfc8c6b9acdeff86[m
+Author: TheOptic57 <thecalebzhou@gmail.com>
+Date:   Wed Dec 13 17:00:31 2023 -0500
+
+    Implemented FlooringDao.java
+    
+    Added all the methods in the interface
+
+[33mcommit 9fec71e8182fb23d99e3c02786708204743fb323[m
+Author: TheOptic57 <thecalebzhou@gmail.com>
+Date:   Wed Dec 13 16:49:17 2023 -0500
+
+    Populated Order.java
+    
+    Added all variables, getters, and setters
+
+[33mcommit c9235236c5b5bfd11c294cf90915bdb82f97cf66[m
+Author: IsmailTBaysal <95452815+IsmailTBaysal@users.noreply.github.com>
+Date:   Wed Dec 13 12:55:52 2023 -0600
+
+    Create README.md
+
+[33mcommit 05fad3caf42854403d3604130b1337234ebc7328[m
+Author: IsmailTBaysal <i.timucinbaysal@gmail.com>
+Date:   Wed Dec 13 12:46:14 2023 -0600
+
+    empty files
