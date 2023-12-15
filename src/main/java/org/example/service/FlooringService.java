@@ -10,7 +10,7 @@ import java.util.List;
 public interface FlooringService {
     List<Order> getAllOrders();
     List<Order> getOrders(LocalDate date);
-    boolean exportAllOrdersToFile(List<Order> orders);
+    void exportAllOrdersToFile();
 
     Order getOrder(int orderNumber, LocalDate date);
 
@@ -20,10 +20,9 @@ public interface FlooringService {
 
     void editOrder(Order order);
 
-    void createOrder(Order order) throws FlooringDuplicateOrderException;
+    void createOrder(Order order) throws FlooringDuplicateOrderException, FlooringDataValidationException;
 
-    void validateOrderData(Order order);
+    void validateOrderData(Order order) throws FlooringDataValidationException;
 
-
-
+    int generateUniqueOrderNumber(LocalDate date);
 }
