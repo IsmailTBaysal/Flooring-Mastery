@@ -72,7 +72,7 @@ class FlooringServiceImplTest {
         */
     }
     @Test
-    void editOrder() {
+    void editOrder() throws FlooringDataValidationException {
         Order orderTest = new Order("1", "Florida", "Rock", new BigDecimal(1), LocalDate.now());
         orderTest.setOrderNumber(1);
         service.editOrder(orderTest);
