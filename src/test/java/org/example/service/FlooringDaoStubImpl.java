@@ -74,7 +74,12 @@ public class FlooringDaoStubImpl implements FlooringDao {
 
     @Override
     public State getState(String stateName) {
-        return onlyOrder.getState();
+        if(stateName.equalsIgnoreCase(onlyState.getStateName())) {
+            return onlyState;
+        }
+        else {
+            return null;
+        }
     }
 
     @Override
@@ -84,7 +89,12 @@ public class FlooringDaoStubImpl implements FlooringDao {
 
     @Override
     public Product getProduct(String productName) {
-        return onlyOrder.getProduct();
+        if(productName.equalsIgnoreCase(onlyProduct.getProductType())) {
+            return onlyProduct;
+        }
+        else {
+            return null;
+        }
     }
 
     @Override
@@ -95,7 +105,7 @@ public class FlooringDaoStubImpl implements FlooringDao {
     @Override
     public List<Product> getAllProduct() {
         List<Product> productList = new ArrayList<>();
-        productList.add(onlyOrder.getProduct());
+        productList.add(onlyProduct);
         return productList;
     }
 }
