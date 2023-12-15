@@ -101,24 +101,38 @@ public class FlooringServiceImpl implements FlooringService{
     public void createOrder(Order order) throws FlooringDuplicateOrderException, FlooringDataValidationException {
 
         if (dao.getOrders(order.getDate())!= null){
-        // Checking if there is duplicate order
-        List<Order> orderList = dao.getOrders(order.getDate());
-        for (Order i : orderList) {
-            if (i.getOrderNumber() == order.getOrderNumber()) {
-                throw new FlooringDuplicateOrderException(
-                        "ERROR: Could not create order.  Order number "
-                                + order.getOrderNumber()
-                                + " already exists");
-            }
+            // Checking if there is duplicate order
+            List<Order> orderList = dao.getOrders(order.getDate());
+            for (Order i : orderList) {
+                if (i.getOrderNumber() == order.getOrderNumber()) {
+                    throw new FlooringDuplicateOrderException(
+                            "ERROR: Could not create order.  Order number "
+                                    + order.getOrderNumber()
+                                    + " already exists");
+                }
         }
+
         // Getting Product and State details from database here:
-        Product product = dao.getProduct(order.getProduct().getProductType());
+         String productString = order.getProduct().getProductType().substring(0,1).toUpperCase()
+                 + order.getProduct().getProductType().substring(1).toLowerCase();
+
+        Product product = dao.getProduct(productString);
+
         order.setProduct(product);
-        State state = dao.getState(order.getState().getStateName());
+
+        String stateString = order.getState().getStateName().substring(0,1).toUpperCase()
+                + order.getState().getStateName().substring(1).toLowerCase();
+        State state = dao.getState(stateString);
+
         order.setState(state);
 
+
+        calculateOrder(order);
+
         validateOrderData(order);
+
         dao.addOrder(order);
+
         }
     }
 
