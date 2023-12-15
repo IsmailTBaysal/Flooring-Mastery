@@ -93,7 +93,7 @@ public class FlooringView {
     }
     public void displayOrderList(List<Order> orderList) {
         for (Order currentOrder : orderList) {
-            String orderInfo = String.format("Order #%s : %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s",
+            String orderInfo = String.format("Order #%s : %s, %s, %s, %s, %s, %s, %s, %s, %s, %s",
                     currentOrder.getOrderNumber(),
                     currentOrder.getCustomerName(),
                     currentOrder.getState().getStateName(),
