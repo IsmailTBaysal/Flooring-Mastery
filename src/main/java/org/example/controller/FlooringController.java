@@ -3,6 +3,7 @@
 package org.example.controller;
 
 import org.example.dto.Order;
+import org.example.service.FlooringDuplicateOrderException;
 import org.example.service.FlooringService;
 import org.example.ui.FlooringView;
 
@@ -136,9 +137,8 @@ public class FlooringController {
         do {
             Order currentOrder = view.getNewOrderInfo();
 
-            /*
-            * set unique order number here (order number will be generated in the service layer)
-            * */
+            int uniqueOrderNumber = service.generateUniqueOrderNumber(currentOrder.getDate());
+            currentOrder.setOrderNumber(uniqueOrderNumber);
 
             try {
                 service.createOrder(currentOrder);
@@ -147,6 +147,8 @@ public class FlooringController {
             }catch (Exception e){
                 hasErrors = true;
                 view.displayErrorMessage(e.getMessage());
+            } catch (FlooringDuplicateOrderException e) {
+                throw new RuntimeException(e);
             }
         }while(hasErrors);
     }

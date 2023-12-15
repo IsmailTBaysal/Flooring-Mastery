@@ -15,7 +15,12 @@ public class FlooringDaoImpl implements FlooringDao{
     private Map<String, State> stateMap = new HashMap<>();
     private Map<String, Product> productMap = new HashMap<>();
     @Override
-    public void addOrder(Order order) {
+    /*
+    addOrder is returning Order for testcase purpose.
+    Do NOT try to store return order
+    treat as returned void type
+    */
+    public Order addOrder(Order order) {
         //readFileOrder(order.getDate());
         if(orderMap.containsKey(order.getDate())) {
             ArrayList<Order> adding = orderMap.get(order.getDate());
@@ -26,8 +31,12 @@ public class FlooringDaoImpl implements FlooringDao{
                 add(order);
             }});
         }
+        //can't return orderMap.put(order.getDate(), arraylist)) because that return an arraylist
+        //returning order is used for unit testing service layer
+        return null;
         //writeFileOrder(order.getDate());
     }
+
 
     @Override
     public void editOrder(LocalDate date, Order order) {
@@ -37,15 +46,14 @@ public class FlooringDaoImpl implements FlooringDao{
             for(int i = 0; i < editList.size(); i++) {
                 if(editList.get(i).getOrderNumber() == order.getOrderNumber()) {
                     editList.set(i, order);
+                    orderMap.replace(date, editList);
+                    return;
                 }
             }
-            orderMap.replace(date, editList);
-            return;
         }
         else {
             System.out.println("No order found");
         }
-       // writeFileOrder(order.getDate());
     }
 
     @Override
@@ -81,6 +89,7 @@ public class FlooringDaoImpl implements FlooringDao{
 
     @Override
     public State getState(String stateName) {
+        readFileState();
         return stateMap.get(stateName);
     }
 
@@ -91,6 +100,7 @@ public class FlooringDaoImpl implements FlooringDao{
 
     @Override
     public Product getProduct(String productName) {
+        readFileProduct();
         return productMap.get(productName);
     }
 
@@ -228,14 +238,43 @@ public class FlooringDaoImpl implements FlooringDao{
                 String[] productArray = scan.nextLine().split(",");
                 if(productArray.length >= 3) {
 
-                    //Product temp = new Product(productArray[0], new BigDecimal(productArray[1]), new BigDecimal(productArray[2]));
-                   // productMap.put(productArray[1], temp);
+                    Product temp = new Product(productArray[0]);
+                    temp.setCostPerSquareFoot(new BigDecimal(productArray[1]));
+                    temp.setLaborCost((new BigDecimal(productArray[2])));
+                    productMap.put(productArray[1], temp);
                 }
 
             }
         }catch (Exception e) {
             System.out.println("Error trying to read file product");
         }
+    }
 
+
+    public void ExportAll() {
+        String fileName = "";
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter(fileName);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            List<Order> exportList = getAllOrder();
+            if(!exportList.isEmpty()) {
+                for(Order o : exportList) {
+                    String writingOut = o.getOrderNumber() + "," + o.getCustomerName() + "," + o.getState().getStateName() + "," + o.getState().getTaxRate()
+                            + "," + o.getProduct().getProductType() + "," + o.getArea() + "," + o.getProduct().getCostPerSquareFoot() + ","
+                            + o.getProduct().getLaborCostPerSquareFoot() + "," + o.getProduct().getMaterialCost() + "," + o.getProduct().getLaborCost() + ","
+                            + o.getTax() + "," + o.getTotal();
+                    bufferedWriter.write(writingOut);
+                    bufferedWriter.newLine();
+                }
+            }
+            else {
+                bufferedWriter.write("");
+            }
+            bufferedWriter.flush();
+            bufferedWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
