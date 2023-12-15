@@ -32,6 +32,7 @@ public class FlooringDaoImpl implements FlooringDao{
             }});
         }
         writeFileOrder(order.getDate());
+
         //can't return orderMap.put(order.getDate(), arraylist)) because that return an arraylist
         //returning order is used for unit testing service layer
         return null;
@@ -156,7 +157,24 @@ public class FlooringDaoImpl implements FlooringDao{
             System.out.println("Error trying to read file order");
         }
     }
+
     public void writeFileOrder(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMddyyyy");
+        String fileName = "Orders/Orders_" + date.format(formatter) + ".txt";
+        try {
+            File myObj = new File(fileName);
+            if(myObj.createNewFile()) {
+
+            }
+            else {
+                System.out.println("Error creating File");
+            }
+        } catch(IOException e) {
+            System.out.println("Error writeFileOrderNotExist file creation");
+        }
+    }
+
+    public void writeFileOrderExist(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMddyyyy");
         String fileName = "Orders/Orders_" + date.format(formatter) + ".txt";
         try {
