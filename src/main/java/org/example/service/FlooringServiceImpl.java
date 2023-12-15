@@ -88,12 +88,17 @@ public class FlooringServiceImpl implements FlooringService{
 
     @Override
     public void editOrder(Order order) {
+
+
+
+        // TODO: If user wants to edit an order, new order should be calculated and validated before changing the data
+
+
         dao.editOrder(order.getDate(), order);
     }
 
     @Override
     public void createOrder(Order order) throws FlooringDuplicateOrderException, FlooringDataValidationException {
-
 
         if (dao.getOrders(order.getDate())!= null){
         // Checking if there is duplicate order
@@ -132,8 +137,8 @@ public class FlooringServiceImpl implements FlooringService{
     @Override
     public int generateUniqueOrderNumber(LocalDate date) {
         int lastUsedOrderNumber;
-        if (getOrders(date) ==null){
-            lastUsedOrderNumber =0;
+        if (getOrders(date) == null){
+            lastUsedOrderNumber = 0;
             return lastUsedOrderNumber;
       }else {
             lastUsedOrderNumber = getOrders(date).size(); // Getting the list of orders in a day to find last order number.
