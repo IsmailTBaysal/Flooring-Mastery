@@ -67,6 +67,8 @@ public class FlooringController {
 
         try {
             List<Order> allOrders = service.getAllOrders();
+            service.exportAllOrdersToFile();
+            /*
             boolean exportSuccess = service.exportAllOrdersToFile(allOrders);
 
             if (exportSuccess) {
@@ -74,6 +76,8 @@ public class FlooringController {
             } else {
                 view.displayExportFailureBanner();
             }
+
+             */
         } catch (Exception e) {
             view.displayErrorMessage(e.getMessage());
         }
@@ -109,11 +113,12 @@ public class FlooringController {
 
 
             // Create a new Order
-            Order updatedOrder = new Order(orderNumber,newCustomerName,newState,newProductType,newArea, date);
+            Order updatedOrder = new Order(newCustomerName,newState,newProductType,newArea, date);
+            updatedOrder.setOrderNumber(orderNumber);
 
             // Calculate the order if state, product type, or area are changed
-            if (!existingOrder.getState().equalsIgnoreCase(newState)
-                    || !existingOrder.getProductType().equalsIgnoreCase(newProductType)
+            if (!existingOrder.getState().getStateName().equalsIgnoreCase(newState)
+                    || !existingOrder.getProduct().getProductType().equalsIgnoreCase(newProductType)
                     || !existingOrder.getArea().equals(newArea)) {
                 updatedOrder = service.calculateOrder(updatedOrder);
             }
