@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface FlooringDao {
     Order addOrder(Order order);
-    Order editOrder(LocalDate date, Order order);
+    void editOrder(LocalDate date, Order order);
     List<Order> getOrders(LocalDate date);
     Order removeOrder(LocalDate date, int orderNum);
     List<Order> getAllOrder();

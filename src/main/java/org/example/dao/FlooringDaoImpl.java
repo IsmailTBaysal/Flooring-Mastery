@@ -39,32 +39,21 @@ public class FlooringDaoImpl implements FlooringDao{
 
 
     @Override
-    /*
-    editOrder is returning Order for testcase purpose.
-    Do NOT try to store return order
-    treat as returned void type
-    */
-    public Order editOrder(LocalDate date, Order order) {
+    public void editOrder(LocalDate date, Order order) {
         //readFileOrder(date);
         if(orderMap.containsKey(date)) {
             ArrayList<Order> editList = orderMap.get(date);
             for(int i = 0; i < editList.size(); i++) {
                 if(editList.get(i).getOrderNumber() == order.getOrderNumber()) {
-                    Order returnOrder = editList.get(i);
                     editList.set(i, order);
                     orderMap.replace(date, editList);
-                    //returning order that was replaced and can be used for testing purposes
-                    return returnOrder;
+                    return;
                 }
             }
         }
         else {
             System.out.println("No order found");
         }
-       // writeFileOrder(order.getDate());
-        //can't return orderMap.put(order.getDate(), arraylist)) because that return an arraylist
-        //returning order is used for unit testing service layer
-        return null;
     }
 
     @Override
