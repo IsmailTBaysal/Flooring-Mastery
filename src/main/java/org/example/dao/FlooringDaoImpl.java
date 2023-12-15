@@ -30,10 +30,11 @@ public class FlooringDaoImpl implements FlooringDao{
             orderMap.put(order.getDate(), new ArrayList<Order>() {{
                 add(order);
             }});
+            writeFileOrderNotExist(order.getDate());
         }
+        writeFileOrderExist(order.getDate());
         //can't return orderMap.put(order.getDate(), arraylist)) because that return an arraylist
         //returning order is used for unit testing service layer
-        writeFileOrder(order.getDate());
         return null;
         //writeFileOrder(order.getDate());
     }
@@ -156,8 +157,23 @@ public class FlooringDaoImpl implements FlooringDao{
             System.out.println("Error trying to read file order");
         }
     }
+    public void writeFileOrderNotExist(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMddyyyy");
+        String fileName = "Orders/Orders_" + date.format(formatter) + ".txt";
+        try {
+            File myObj = new File(fileName);
+            if(myObj.createNewFile()) {
 
-    public void writeFileOrder(LocalDate date) {
+            }
+            else {
+                System.out.println("Error creating File");
+            }
+        } catch(IOException e) {
+            System.out.println("Error writeFileOrderNotExist file creation");
+        }
+    }
+
+    public void writeFileOrderExist(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMddyyyy");
         String fileName = "Orders/Orders_" + date.format(formatter) + ".txt";
         try {
@@ -241,7 +257,7 @@ public class FlooringDaoImpl implements FlooringDao{
 
                     Product temp = new Product(productArray[0]);
                     temp.setCostPerSquareFoot(new BigDecimal(productArray[1]));
-                    temp.setLaborCost((new BigDecimal(productArray[2])));
+                    temp.setLaborCostPerSquareFoot((new BigDecimal(productArray[2])));
                     productMap.put(productArray[0], temp);
                 }
 
