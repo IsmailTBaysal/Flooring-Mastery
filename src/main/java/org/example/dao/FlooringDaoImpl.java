@@ -21,7 +21,7 @@ public class FlooringDaoImpl implements FlooringDao{
     treat as returned void type
     */
     public Order addOrder(Order order) {
-        //readFileOrder(order.getDate());
+        readFileOrder(order.getDate());
         if(orderMap.containsKey(order.getDate())) {
             ArrayList<Order> adding = orderMap.get(order.getDate());
             adding.add(order);
@@ -30,7 +30,9 @@ public class FlooringDaoImpl implements FlooringDao{
             orderMap.put(order.getDate(), new ArrayList<Order>() {{
                 add(order);
             }});
+            writeFileOrderNotExist(order.getDate());
         }
+        writeFileOrderExist(order.getDate());
         //can't return orderMap.put(order.getDate(), arraylist)) because that return an arraylist
         //returning order is used for unit testing service layer
         return null;
@@ -40,7 +42,7 @@ public class FlooringDaoImpl implements FlooringDao{
 
     @Override
     public void editOrder(LocalDate date, Order order) {
-        //readFileOrder(date);
+        readFileOrder(date);
         if(orderMap.containsKey(date)) {
             ArrayList<Order> editList = orderMap.get(date);
             for(int i = 0; i < editList.size(); i++) {
@@ -155,8 +157,23 @@ public class FlooringDaoImpl implements FlooringDao{
             System.out.println("Error trying to read file order");
         }
     }
+    public void writeFileOrderNotExist(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMddyyyy");
+        String fileName = "Orders/Orders_" + date.format(formatter) + ".txt";
+        try {
+            File myObj = new File(fileName);
+            if(myObj.createNewFile()) {
 
-    public void writeFileOrder(LocalDate date) {
+            }
+            else {
+                System.out.println("Error creating File");
+            }
+        } catch(IOException e) {
+            System.out.println("Error writeFileOrderNotExist file creation");
+        }
+    }
+
+    public void writeFileOrderExist(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMddyyyy");
         String fileName = "Orders/Orders_" + date.format(formatter) + ".txt";
         try {
@@ -200,7 +217,7 @@ public class FlooringDaoImpl implements FlooringDao{
     public void readFileState () {
         try {
             //reads file
-            FileReader read = new FileReader("Date/Taxes.txt");
+            FileReader read = new FileReader("Data/Taxes.txt");
             BufferedReader buffer = new BufferedReader(read);
             Scanner scan = new Scanner(buffer);
             /*
@@ -225,7 +242,7 @@ public class FlooringDaoImpl implements FlooringDao{
     public void readFileProduct() {
         try {
             //reads file
-            FileReader read = new FileReader("Date/Products.txt");
+            FileReader read = new FileReader("Data/Products.txt");
             BufferedReader buffer = new BufferedReader(read);
             Scanner scan = new Scanner(buffer);
             /*
@@ -240,8 +257,8 @@ public class FlooringDaoImpl implements FlooringDao{
 
                     Product temp = new Product(productArray[0]);
                     temp.setCostPerSquareFoot(new BigDecimal(productArray[1]));
-                    temp.setLaborCost((new BigDecimal(productArray[2])));
-                    productMap.put(productArray[1], temp);
+                    temp.setLaborCostPerSquareFoot((new BigDecimal(productArray[2])));
+                    productMap.put(productArray[0], temp);
                 }
 
             }
