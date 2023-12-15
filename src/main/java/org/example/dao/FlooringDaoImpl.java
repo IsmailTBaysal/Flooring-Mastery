@@ -58,7 +58,7 @@ public class FlooringDaoImpl implements FlooringDao{
 
     @Override
     public List<Order> getOrders(LocalDate date) {
-        //readFileOrder(date);
+        readFileOrder(date);
         return orderMap.get(date);
     }
 
@@ -116,7 +116,7 @@ public class FlooringDaoImpl implements FlooringDao{
     public void readFileOrder(LocalDate date) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMddyyyy");
-            String fileName = "Orders_" + date.format(formatter) + ".txt";
+            String fileName = "Orders/Orders_" + date.format(formatter) + ".txt";
             //Check if file exists
             if(!(new File(fileName).exists())) {
                 return;
@@ -158,7 +158,7 @@ public class FlooringDaoImpl implements FlooringDao{
 
     public void writeFileOrder(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMddyyyy");
-        String fileName = "Orders_" + date.format(formatter) + ".txt";
+        String fileName = "Orders/Orders_" + date.format(formatter) + ".txt";
         try {
             FileWriter fileWriter = new FileWriter(fileName);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
@@ -200,7 +200,7 @@ public class FlooringDaoImpl implements FlooringDao{
     public void readFileState () {
         try {
             //reads file
-            FileReader read = new FileReader("Taxes.txt");
+            FileReader read = new FileReader("Date/Taxes.txt");
             BufferedReader buffer = new BufferedReader(read);
             Scanner scan = new Scanner(buffer);
             /*
@@ -225,7 +225,7 @@ public class FlooringDaoImpl implements FlooringDao{
     public void readFileProduct() {
         try {
             //reads file
-            FileReader read = new FileReader("Products.txt");
+            FileReader read = new FileReader("Date/Products.txt");
             BufferedReader buffer = new BufferedReader(read);
             Scanner scan = new Scanner(buffer);
             /*
