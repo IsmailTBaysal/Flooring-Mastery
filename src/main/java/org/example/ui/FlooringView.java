@@ -152,7 +152,7 @@ public class FlooringView {
     public String getUpdatedProductType(String currentCustomerName) {
         return io.readString("Enter new product: ");
     }
-    public BigDecimal getUpdatedArea(String currentCustomerName) {
+    public BigDecimal getUpdatedArea(BigDecimal currentCustomerName) {
         return io.readBigDecimal("Enter new area: ");
     }
 }
