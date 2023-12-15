@@ -3,6 +3,7 @@
 package org.example.controller;
 
 import org.example.dto.Order;
+import org.example.service.FlooringDataValidationException;
 import org.example.service.FlooringDuplicateOrderException;
 import org.example.service.FlooringService;
 import org.example.ui.FlooringView;
@@ -67,6 +68,8 @@ public class FlooringController {
 
         try {
             List<Order> allOrders = service.getAllOrders();
+            service.exportAllOrdersToFile();
+            /*
             boolean exportSuccess = service.exportAllOrdersToFile(allOrders);
 
             if (exportSuccess) {
@@ -74,6 +77,8 @@ public class FlooringController {
             } else {
                 view.displayExportFailureBanner();
             }
+
+             */
         } catch (Exception e) {
             view.displayErrorMessage(e.getMessage());
         }
@@ -109,11 +114,12 @@ public class FlooringController {
 
 
             // Create a new Order
-            Order updatedOrder = new Order(orderNumber,newCustomerName,newState,newProductType,newArea, date);
+            Order updatedOrder = new Order(newCustomerName,newState,newProductType,newArea, date);
+            updatedOrder.setOrderNumber(orderNumber);
 
             // Calculate the order if state, product type, or area are changed
             if (!existingOrder.getState().getStateName().equalsIgnoreCase(newState)
-                    || !existingOrder.getProductType().equalsIgnoreCase(newProductType)
+                    || !existingOrder.getProduct().getProductType().equalsIgnoreCase(newProductType)
                     || !existingOrder.getArea().equals(newArea)) {
                 updatedOrder = service.calculateOrder(updatedOrder);
             }
@@ -144,10 +150,13 @@ public class FlooringController {
                 service.createOrder(currentOrder);
                 view.displayCreateOrderSuccessBanner();
                 hasErrors = false;
-            }catch (Exception e){
+            }
+            /*catch (Exception e){
                 hasErrors = true;
                 view.displayErrorMessage(e.getMessage());
-            } catch (FlooringDuplicateOrderException e) {
+            }
+            */catch (FlooringDuplicateOrderException | FlooringDataValidationException e) {
+
                 throw new RuntimeException(e);
             }
         }while(hasErrors);

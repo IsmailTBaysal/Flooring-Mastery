@@ -27,13 +27,25 @@ public class FlooringView {
     }
 
     public Order getNewOrderInfo() {
-        LocalDate orderDate = LocalDate.parse(io.readString("Please enter order date: "));
+        LocalDate orderDate = LocalDate.parse(io.readString("Please enter order date (YYYY-MM-DD) : "));
         String customerName = io.readString("Please enter customer name: ");
         String state = io.readString("Please enter state: ");
         String productType = io.readString("Please enter product type: ");
         BigDecimal area = io.readBigDecimal("Please enter area: ");
 
-        regit turn new Order(customerName, state, productType, area, orderDate);
+        //State orderState = new State(state);
+        //Product orderProductType = new Product(productType);
+
+        Order currentOrder = new Order(customerName, state, productType, area, orderDate);
+        /*
+        currentOrder.setCustomerName(customerName); 
+        currentOrder.setState(orderState);
+        currentOrder.setProduct(orderProductType);
+        currentOrder.setArea(area);
+        currentOrder.setDate(orderDate);
+        */
+
+        return currentOrder;
     }
 
     public void displayCreateOrderBanner() {
@@ -143,7 +155,7 @@ public class FlooringView {
     public String getUpdatedProductType(String currentCustomerName) {
         return io.readString("Enter new product: ");
     }
-    public BigDecimal getUpdatedArea(String currentCustomerName) {
+    public BigDecimal getUpdatedArea(BigDecimal currentCustomerName) {
         return io.readBigDecimal("Enter new area: ");
     }
 }
