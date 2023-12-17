@@ -64,24 +64,16 @@ public class FlooringController {
     }
 
     private void exportAllData() {
+
         view.displayExportDataBanner();
 
         try {
-            List<Order> allOrders = service.getAllOrders();
             service.exportAllOrdersToFile();
-            /*
-            boolean exportSuccess = service.exportAllOrdersToFile(allOrders);
-
-            if (exportSuccess) {
-                view.displayExportSuccessBanner();
-            } else {
-                view.displayExportFailureBanner();
-            }
-
-             */
+            view.displayExportSuccessBanner();
         } catch (Exception e) {
             view.displayErrorMessage(e.getMessage());
         }
+
     }
 
     private void removeOrder() {

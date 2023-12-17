@@ -31,9 +31,7 @@ public class FlooringServiceImpl implements FlooringService{
 
     @Override
     public void exportAllOrdersToFile() {
-        /*
-        * Implement it later!
-        * */
+        dao.exportAll();
     }
 
     @Override
@@ -50,10 +48,15 @@ public class FlooringServiceImpl implements FlooringService{
     @Override
     public void removeOrder(int orderNumber, LocalDate date) {
         List<Order> orderList = dao.getOrders(date);
-        for (Order i : orderList){
-            if (i.getOrderNumber() == orderNumber){
-                dao.removeOrder(date,orderNumber);
+
+        if (!orderList.isEmpty()) {
+            for (Order i : orderList) {
+                if (i.getOrderNumber() == orderNumber) {
+                    dao.removeOrder(date, orderNumber);
+                }
             }
+        }else {
+            throw new RuntimeException("No orders found for the specified date.");
         }
     }
 
@@ -125,9 +128,7 @@ public class FlooringServiceImpl implements FlooringService{
                 }
 
             }
-
         }
-
         // Getting Product and State details from database here:
          String productString = order.getProduct().getProductType().substring(0,1).toUpperCase()
                  + order.getProduct().getProductType().substring(1).toLowerCase();
