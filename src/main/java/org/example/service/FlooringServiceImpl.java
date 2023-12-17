@@ -20,11 +20,6 @@ public class FlooringServiceImpl implements FlooringService{
     }
 
     @Override
-    public List<Order> getAllOrders() { // For exporting all the data
-        return dao.getAllOrder();
-    }
-
-    @Override
     public List<Order> getOrders(LocalDate date) { // For listing all the orders in a file
         return dao.getOrders(date);
     }

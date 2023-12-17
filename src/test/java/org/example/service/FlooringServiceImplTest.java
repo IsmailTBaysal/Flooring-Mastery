@@ -15,18 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FlooringServiceImplTest {
     FlooringService service = new FlooringServiceImpl(new FlooringDaoStubImpl());
-    @Test
-    void getAllOrders() {
-        //Creating an order to see if it is same as the one in FlooringDaoStubImpl
-        Order orderTest = new Order("1", "Washington", "Wood", new BigDecimal(1), LocalDate.now());
-        orderTest.setOrderNumber(1);
-
-        //onlyOrder should be the only one in getAllOrder
-        assertEquals( 1, service.getAllOrders().size(),
-                "Should only have one Order.");
-        assertTrue( service.getAllOrders().contains(orderTest),
-                "The one Order should be the same as the one in FlooringDaoStubImpl.");
-    }
 
     @Test
     void getOrders() {
