@@ -69,13 +69,13 @@ public class FlooringDaoImpl implements FlooringDao{
 
     @Override
     public Order removeOrder(LocalDate date, int orderNum) {
-        //readFileOrder(date);
+        readFileOrder(date);
         ArrayList<Order> checkForRemoval = orderMap.get(date);
         for(Order o: checkForRemoval) {
             if(o.getOrderNumber() == orderNum) {
                 checkForRemoval.remove(o);
                 orderMap.replace(date, checkForRemoval);
-                //writeFileOrder(date);
+                writeFileOrder(date);
                 return o;
             }
         }
