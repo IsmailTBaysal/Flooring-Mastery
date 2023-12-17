@@ -20,4 +20,5 @@ public interface FlooringDao {
     Product getProduct(String productName);
     Product addProduct(String productName, Product product);
     List<Product> getAllProduct();
+    void exportAll();
 }
