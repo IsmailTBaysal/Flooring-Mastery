@@ -112,25 +112,21 @@ public class FlooringController {
             String newProductType = view.getUpdatedProductType(existingOrder.getProduct().getProductType());
             BigDecimal newArea = view.getUpdatedArea(existingOrder.getArea());
 
-
-            // Create a new Order
-            Order updatedOrder = new Order(newCustomerName,newState,newProductType,newArea, date);
-            updatedOrder.setOrderNumber(orderNumber);
+            // Editing Order
+            existingOrder.setCustomerName(newCustomerName);
+            existingOrder.getState().setStateName(newState);
+            existingOrder.getProduct().setProductType(newProductType);
+            existingOrder.setArea(newArea);
 
             // Calculate the order if state, product type, or area are changed
-            if (!existingOrder.getState().getStateName().equalsIgnoreCase(newState)
-                    || !existingOrder.getProduct().getProductType().equalsIgnoreCase(newProductType)
-                    || !existingOrder.getArea().equals(newArea)) {
-                view.displayOrder(updatedOrder);
-                if (view.getConfirmation()){
-                    service.editOrder(updatedOrder);
+//            view.displayOrder(existingOrder);
+            if (view.getConfirmation()){
+                service.editOrder(existingOrder);
 
-                    view.displayEditSuccessBanner();
-                }else {
-                    view.displayEditCanceledBanner();
-                }
+                view.displayEditSuccessBanner();
+            }else {
+                view.displayEditCanceledBanner();
             }
-            view.displayOrderNotFoundBanner();
         }
     }
 

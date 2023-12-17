@@ -142,8 +142,7 @@ public class FlooringView {
         io.print("No order found.");
     }
     public boolean getConfirmation() {
-        io.readString("Place the order? (Y/N): ");
-        String result = sc.nextLine();
+        String result = io.readString("Place the order? (Y/N): ");
         return result.equals("Y");
     }
     public String getUpdatedCustomerName(String currentCustomerName) {
