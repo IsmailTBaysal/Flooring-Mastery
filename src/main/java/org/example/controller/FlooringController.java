@@ -21,7 +21,7 @@ public class FlooringController {
         this.view =view;
     }
 
-    public void run() {
+    public void run() throws FlooringDataValidationException {
         boolean keepGoing = true;
         int menuSelection = 0;
         while (keepGoing) {
@@ -97,7 +97,7 @@ public class FlooringController {
         }
     }
 
-    private void editOrder() {
+    private void editOrder() throws FlooringDataValidationException {
         view.displayEditOrderBanner();
         LocalDate date = view.getDate();
         int orderNumber = view.getOrderNumber();
@@ -112,28 +112,21 @@ public class FlooringController {
             String newProductType = view.getUpdatedProductType(existingOrder.getProduct().getProductType());
             BigDecimal newArea = view.getUpdatedArea(existingOrder.getArea());
 
-
-            // Create a new Order
-            Order updatedOrder = new Order(newCustomerName,newState,newProductType,newArea, date);
-            updatedOrder.setOrderNumber(orderNumber);
+            // Editing Order
+            existingOrder.setCustomerName(newCustomerName);
+            existingOrder.getState().setStateName(newState);
+            existingOrder.getProduct().setProductType(newProductType);
+            existingOrder.setArea(newArea);
 
             // Calculate the order if state, product type, or area are changed
-            if (!existingOrder.getState().getStateName().equalsIgnoreCase(newState)
-                    || !existingOrder.getProduct().getProductType().equalsIgnoreCase(newProductType)
-                    || !existingOrder.getArea().equals(newArea)) {
-                updatedOrder = service.calculateOrder(updatedOrder);
-            }
-
-            view.displayOrder(updatedOrder);
-
+//            view.displayOrder(existingOrder);
             if (view.getConfirmation()){
-                service.editOrder(updatedOrder);
+                service.editOrder(existingOrder);
 
                 view.displayEditSuccessBanner();
             }else {
                 view.displayEditCanceledBanner();
             }
-            view.displayOrderNotFoundBanner();
         }
     }
 
