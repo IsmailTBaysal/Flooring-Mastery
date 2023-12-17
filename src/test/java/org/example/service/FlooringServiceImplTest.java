@@ -18,11 +18,13 @@ class FlooringServiceImplTest {
     @Test
     void getAllOrders() {
         //Creating an order to see if it is same as the one in FlooringDaoStubImpl
-        Order orderTest = new Order("1", "Washington", "Wood", new BigDecimal(1), LocalDate.now());
+        Order orderTest = new Order("Ada Lovelace", "Washington", "Wood", new BigDecimal(1), LocalDate.now());
         orderTest.setOrderNumber(1);
 
+        Order shouldBeAda = service.getOrder(1,LocalDate.now());
+
         //onlyOrder should be the only one in getAllOrder
-        assertEquals( 1, service.getAllOrders().size(),
+        assertEquals( shouldBeAda,
                 "Should only have one Order.");
         assertTrue( service.getAllOrders().contains(orderTest),
                 "The one Order should be the same as the one in FlooringDaoStubImpl.");
