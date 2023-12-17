@@ -51,6 +51,7 @@ public class FlooringDaoImpl implements FlooringDao{
                 if(editList.get(i).getOrderNumber() == order.getOrderNumber()) {
                     editList.set(i, order);
                     orderMap.replace(date, editList);
+                    writeFileOrder(date);
                     return;
                 }
             }
@@ -68,13 +69,13 @@ public class FlooringDaoImpl implements FlooringDao{
 
     @Override
     public Order removeOrder(LocalDate date, int orderNum) {
-        //readFileOrder(date);
+        readFileOrder(date);
         ArrayList<Order> checkForRemoval = orderMap.get(date);
         for(Order o: checkForRemoval) {
             if(o.getOrderNumber() == orderNum) {
                 checkForRemoval.remove(o);
                 orderMap.replace(date, checkForRemoval);
-                //writeFileOrder(date);
+                writeFileOrder(date);
                 return o;
             }
         }
@@ -286,7 +287,7 @@ public class FlooringDaoImpl implements FlooringDao{
     }
 
 
-    public void ExportAll() {
+    public void exportAll() {
         getAllFiles();
         String fileName = "Export.txt";
         FileWriter fileWriter = null;
@@ -310,7 +311,7 @@ public class FlooringDaoImpl implements FlooringDao{
             bufferedWriter.flush();
             bufferedWriter.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("Error reading Export.txt");;
         }
     }
 }
