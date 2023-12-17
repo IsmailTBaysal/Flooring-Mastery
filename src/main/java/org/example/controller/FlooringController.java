@@ -148,8 +148,14 @@ public class FlooringController {
     }
 
     private void displayOrders(){
+
     List<Order> orderList = service.getOrders(view.getDate());
-    view.displayOrderList(orderList);
+        if (orderList != null) {
+            view.displayOrderList(orderList);
+        }else {
+            view.displayErrorMessage("Error: There is no order on that date.");
+        }
+
     }
 
     private int getMenuSelection() {

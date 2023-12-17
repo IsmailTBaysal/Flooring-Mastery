@@ -8,7 +8,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface FlooringService {
-    List<Order> getAllOrders();
     List<Order> getOrders(LocalDate date);
     void exportAllOrdersToFile();
 
