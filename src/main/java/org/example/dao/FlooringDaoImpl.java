@@ -9,6 +9,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class FlooringDaoImpl implements FlooringDao{
     private Map<LocalDate, ArrayList<Order>> orderMap = new HashMap<>();
@@ -252,9 +254,41 @@ public class FlooringDaoImpl implements FlooringDao{
         }
     }
 
+    public void getAllFiles() {
+        Set<String> listFilesUsingJavaIO = Stream.of(Objects.requireNonNull(new File("Orders").listFiles()))
+                .filter(file -> !file.isDirectory())
+                .map(File::getName)
+                .collect(Collectors.toSet());
+        for(String s: listFilesUsingJavaIO) {
+            try {
+                FileReader read = new FileReader("Orders/" + s);
+                BufferedReader buffer = new BufferedReader(read);
+                Scanner scan = new Scanner(buffer);
+                ArrayList<Order> tempArrayList = new ArrayList<>();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMddyyyy");
+                LocalDate date = LocalDate.parse(s.substring(7, 15), formatter);
+                while(scan.hasNextLine()) {
+                    String[] orderArray = scan.nextLine().split(",");
+                    if(orderArray.length >= 12) {
+                        Order temp = new Order(Integer.parseInt(orderArray[0]), orderArray[1], orderArray[2], new BigDecimal(orderArray[3]), orderArray[4],
+                                new BigDecimal(orderArray[5]), new BigDecimal(orderArray[6]), new BigDecimal(orderArray[7]), new BigDecimal(orderArray[8]),
+                                new BigDecimal(orderArray[9]), new BigDecimal(orderArray[10]), new BigDecimal(orderArray[11]), date);
+                        tempArrayList.add(temp);
+                    }
+                }
+                orderMap.put(date, tempArrayList);
+                buffer.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+    }
+
 
     public void ExportAll() {
-        String fileName = "";
+        getAllFiles();
+        String fileName = "Export.txt";
         FileWriter fileWriter = null;
         try {
             fileWriter = new FileWriter(fileName);
