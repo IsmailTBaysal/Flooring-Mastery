@@ -14,8 +14,8 @@ import java.util.List;
 public class FlooringDaoStubImpl implements FlooringDao {
 
     public Order onlyOrder;
-    public ArrayList<State> onlyState;
-    public ArrayList<Product>  onlyProduct;
+    public ArrayList<State> onlyState = new ArrayList<>();
+    public ArrayList<Product>  onlyProduct = new ArrayList<>();
 
     public FlooringDaoStubImpl() {
         onlyOrder = new Order("1", "Washington", "Wood", new BigDecimal(1), LocalDate.now());
@@ -42,10 +42,7 @@ public class FlooringDaoStubImpl implements FlooringDao {
 
     @Override
     public void editOrder(LocalDate date, Order order) {
-        if(date == onlyOrder.getDate() && order.getOrderNumber() == onlyOrder.getOrderNumber()) {
-            onlyOrder = order;
-        }
-
+        onlyOrder = order;
     }
 
     @Override

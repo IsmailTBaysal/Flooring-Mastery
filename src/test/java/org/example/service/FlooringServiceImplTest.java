@@ -67,6 +67,7 @@ class FlooringServiceImplTest {
     @Test
     void editOrder() throws FlooringDataValidationException {
         Order testOrder = new Order("1", "Florida", "Rock", new BigDecimal(1), LocalDate.now());
+        testOrder.setOrderNumber(1);
         service.editOrder(testOrder);
 
         Order getOnlyOrder = service.getOrder(1, LocalDate.now());
