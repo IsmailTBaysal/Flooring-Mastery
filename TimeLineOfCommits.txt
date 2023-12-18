@@ -1,0 +1,53 @@
+12/13/23
+Created UML - Everybody
+Setup and Created Github - Ismail
+Created Dao interface - Caleb
+
+12/14/23
+Created and Finished a basic working verion of {
+	Product - Ismail
+	State - Kelvin
+	Created Order - Caleb
+
+	Dao Implimentation - Caleb
+	Controller - Ismail
+	UserIO - Kelvin
+}
+Created and Working on {
+	FlooringView - Kelvin
+	UnitTest for Dao - Caleb
+	FlooringService - Ismail
+}
+
+12/15/23
+Updated {
+	FlooringView fixed all methods - Kelvin
+	Dao Implimentation added methods and file reader - Caleb
+	Order added constructor - Caleb
+	Fixing tax and total on Controller - Ismail
+}
+Created and/or Working on {
+	UnitTest for Service Layer - Caleb
+	Data folders created - Ismail
+}
+Created and Finished a basic working version of {
+	App and Service - Ismail
+}
+
+12/17/2023
+Updated and/or Working on {
+	DaoImpl writes when editing - Caleb
+	Added exportAll method to interface and changes to
+	unit testing - Caleb
+	Service Layer testing - Kelvin
+	Fixed export and remove methods - Ismail
+}
+
+12/18/2023
+Updated and/or Working on {
+	Fixed all unit testing for dao - Caleb
+	Added read product to DaoImpl and a README - Caleb
+	Input validation on FlooringView - Ismail
+	Fixed product on ServiceImpl - Ismail
+	Fixed all unit testing for serviceTest - Kelvin
+}

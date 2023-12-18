@@ -1,0 +1,14 @@
+Create Order Class - Caleb
+Create Product Class - Ismail
+Create State Class - Kelvin
+Create Interface FlooringDao - Caleb
+Create FlooringDao - Caleb
+Create Interface FlooringService - Ismail
+Create FlooringService - Ismail
+Create Interface UserIO - Kelvin
+Create UserIO - Kelvin
+Create FloorView - Kelvin
+Create FlooringController - Ismail
+Create UnitTest - Caleb and Kelvin
+Implement SpringDI - Everyone
+Manual Testing - Everyone
