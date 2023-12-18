@@ -19,6 +19,5 @@ public class App {
         FlooringService myService = new FlooringServiceImpl(myDao);
         FlooringController controller = new FlooringController(myService, myView);
         controller.run();
-
     }
 }
