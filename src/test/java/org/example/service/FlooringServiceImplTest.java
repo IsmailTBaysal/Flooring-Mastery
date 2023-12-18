@@ -29,7 +29,7 @@ class FlooringServiceImplTest {
                 "The arraylist should contain the object");
 
         //Grabbing a order date that we know doesn't exist
-        List<Order> shouldBeEmpty = service.getOrders(LocalDate.now().minusDays(1));
+        List<Order> shouldBeEmpty = service.getOrders(LocalDate.now().minusDays(100));
         assertTrue( shouldBeEmpty.isEmpty(), "The list should be empty");
     }
     @Test
@@ -48,7 +48,7 @@ class FlooringServiceImplTest {
     }
 
     @Test
-    void removeOrder() {
+    void removeOrder() throws Exception {
         Order orderTest = new Order("1", "Washington", "Wood", new BigDecimal(1), LocalDate.now());
         orderTest.setOrderNumber(1);
 
