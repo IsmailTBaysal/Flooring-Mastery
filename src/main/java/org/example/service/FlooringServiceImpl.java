@@ -41,18 +41,20 @@ public class FlooringServiceImpl implements FlooringService{
     }
 
     @Override
-    public void removeOrder(int orderNumber, LocalDate date) {
+    public Order removeOrder(int orderNumber, LocalDate date) {
         List<Order> orderList = dao.getOrders(date);
 
         if (!orderList.isEmpty()) {
             for (Order i : orderList) {
                 if (i.getOrderNumber() == orderNumber) {
                     dao.removeOrder(date, orderNumber);
+                    return i;
                 }
             }
         }else {
             throw new RuntimeException("No orders found for the specified date.");
         }
+        return null;
     }
 
     @Override

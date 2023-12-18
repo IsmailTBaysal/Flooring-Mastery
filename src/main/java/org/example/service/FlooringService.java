@@ -13,7 +13,7 @@ public interface FlooringService {
 
     Order getOrder(int orderNumber, LocalDate date);
 
-    void removeOrder(int orderNumber, LocalDate date);
+    Order removeOrder(int orderNumber, LocalDate date);
 
     Order calculateOrder(Order order);
 

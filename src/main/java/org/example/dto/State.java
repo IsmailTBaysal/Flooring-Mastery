@@ -1,6 +1,7 @@
 package org.example.dto;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class State {
     private String stateAbbreviation;
@@ -31,5 +32,26 @@ public class State {
     }
     public BigDecimal getTaxRate() {
         return taxRate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof State state)) return false;
+        return Objects.equals(getStateAbbreviation(), state.getStateAbbreviation()) && Objects.equals(getStateName(), state.getStateName()) && Objects.equals(getTaxRate(), state.getTaxRate());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getStateAbbreviation(), getStateName(), getTaxRate());
+    }
+
+    @Override
+    public String toString() {
+        return "State{" +
+                "stateAbbreviation='" + stateAbbreviation + '\'' +
+                ", stateName='" + stateName + '\'' +
+                ", taxRate=" + taxRate +
+                '}';
     }
 }
