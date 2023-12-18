@@ -121,11 +121,12 @@ public class FlooringServiceImpl implements FlooringService{
                                     + order.getOrderNumber()
                                     + " already exists");
                 }
+
             }
         }
         // Getting Product and State details from database here:
-         String productString = order.getProduct().getProductType().substring(0,1).toUpperCase()
-                 + order.getProduct().getProductType().substring(1).toLowerCase();
+        String productString = order.getProduct().getProductType().substring(0,1).toUpperCase()
+                + order.getProduct().getProductType().substring(1).toLowerCase();
 
         Product product = dao.getProduct(productString);
 
@@ -138,7 +139,6 @@ public class FlooringServiceImpl implements FlooringService{
         order.setState(state);
 
         calculateOrder(order);
-
         validateOrderData(order);
 
         dao.addOrder(order);
@@ -162,10 +162,14 @@ public class FlooringServiceImpl implements FlooringService{
         if (getOrders(date) == null){
             lastUsedOrderNumber = 0;
             return lastUsedOrderNumber;
-      }else {
+        }else {
             lastUsedOrderNumber = getOrders(date).size(); // Getting the list of orders in a day to find last order number.
             lastUsedOrderNumber++;
             return lastUsedOrderNumber;
         }
+    }
+    @Override
+    public List<Product> getProducts() {
+        return dao.getAllProduct();
     }
 }
