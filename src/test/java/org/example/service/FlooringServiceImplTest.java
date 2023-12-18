@@ -15,8 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FlooringServiceImplTest {
     FlooringService service = new FlooringServiceImpl(new FlooringDaoStubImpl());
-    Order customOrder = new Order("1", "Florida", "Rock", new BigDecimal(1), LocalDate.now());
-    FlooringService floridaService = new FlooringServiceImpl(new FlooringDaoStubImpl(customOrder));
     @Test
     void getOrders() {
         Order orderTest = service.getOrder(1, LocalDate.now());
@@ -68,14 +66,12 @@ class FlooringServiceImplTest {
     }
     @Test
     void editOrder() throws FlooringDataValidationException {
-        Order orderTest = new Order("1", "Florida", "Rock", new BigDecimal(1), LocalDate.now());
-        //Order orderTest = new Order("1", "Washington", "Wood", new BigDecimal(1), LocalDate.now());
-        orderTest.setOrderNumber(1);
-        floridaService.editOrder(orderTest);
+        Order testOrder = new Order("1", "Florida", "Rock", new BigDecimal(1), LocalDate.now());
+        service.editOrder(testOrder);
 
-        Order getOnlyOrder = floridaService.getOrder(1, LocalDate.now());
+        Order getOnlyOrder = service.getOrder(1, LocalDate.now());
         assertNotNull(getOnlyOrder, "Getting 1 and LocalDate.now() should be not null.");
-        assertEquals( orderTest, getOnlyOrder,
+        assertEquals( testOrder, getOnlyOrder,
                 "Order stored under 1 and LocalDate.now() should be the same");
 
     }
