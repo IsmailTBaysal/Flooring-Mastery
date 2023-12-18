@@ -3,26 +3,41 @@ package org.example.dao;
 import org.example.dto.Order;
 import org.example.dto.Product;
 import org.example.dto.State;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class FlooringDaoImplTest {
     FlooringDao dao = new FlooringDaoImpl();
+    LocalDate date = LocalDate.parse("0001-02-03");
+
+    @AfterEach
+    public void setUp(){
+        List<Order> listOrder = dao.getOrders(date);
+        for(Order o: listOrder) {
+            dao.removeOrder(date, o.getOrderNumber());
+        }
+    }
 
     @Test
     void addOrder() {
         //Creates an Order to add
         Order orderAdded = new Order(1, "1", "1", new BigDecimal(1), "1",
                 new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1),
-                new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), LocalDate.now());
+                new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), date);
         dao.addOrder(orderAdded);
         //Grabs Order. Because it is mapped to an arraylist we need to grab the 0th index
-        Order orderCheck = dao.getOrders(LocalDate.now()).get(0);
+        Order orderCheck = dao.getOrders(date).get(0);
 
         //Checking if everything matches up
         assertEquals(orderAdded.getOrderNumber(),
@@ -49,20 +64,18 @@ class FlooringDaoImplTest {
                 orderCheck.getDate(),
                 "Checking Order Date.");
 
-        assertEquals(orderAdded.getState(),
-                orderCheck.getState(),
-                "Checking Order State.");
+        assertEquals(orderAdded.getState().getStateName(),
+                orderCheck.getState().getStateName(),
+                "Checking Order State Name.");
 
-        assertEquals(orderAdded.getProduct(),
-                orderCheck.getProduct(),
+        assertEquals(orderAdded.getProduct().getProductType(),
+                orderCheck.getProduct().getProductType(),
                 "Checking Order Product.");
 
     }
 
     @Test
     void editOrder() {
-        //Creates an Order to add
-        LocalDate date = LocalDate.now();
         Order orderAdded = new Order(1, "1", "1", new BigDecimal(1), "1",
                 new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1),
                 new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), date);
@@ -106,63 +119,166 @@ class FlooringDaoImplTest {
                 orderCheck.getDate(),
                 "Checking Order Date.");
 
-        assertEquals(orderAddedEdited.getState(),
-                orderCheck.getState(),
+        assertEquals(orderAddedEdited.getState().getStateName(),
+                orderCheck.getState().getStateName(),
                 "Checking Order State.");
 
-        assertEquals(orderAddedEdited.getProduct(),
-                orderCheck.getProduct(),
+        assertEquals(orderAddedEdited.getProduct().getProductType(),
+                orderCheck.getProduct().getProductType(),
                 "Checking Order Product.");
     }
 
     @Test
     void getOrders() {
         //Same as above and adding created Orders
-        LocalDate date = LocalDate.now();
         Order orderAdded1 = new Order(1, "1", "1", new BigDecimal(1), "1",
                 new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1),
                 new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), date);
         dao.addOrder(orderAdded1);
         List<Order> check1 = dao.getOrders(date);
         assertEquals(1, check1.size());
-        Order orderAdded2 = new Order(2, "1", "1", new BigDecimal(1), "1",
-                new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1),
-                new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), date);
+        Order orderAdded2 = new Order(2, "2", "2", new BigDecimal(2), "2",
+                new BigDecimal(2), new BigDecimal(2), new BigDecimal(2), new BigDecimal(2),
+                new BigDecimal(2), new BigDecimal(2), new BigDecimal(2), date);
         dao.addOrder(orderAdded2);
 
         //Checks if the list contains two Orders
         List<Order> check2 = dao.getOrders(date);
-        assertEquals(2, check1.size());
+        assertEquals(2, check2.size());
 
+        Order orderCheck1 = null;
+        Order orderCheck2 = null;
         //Checks if the Orders are the list
-        assertTrue(check2.contains(orderAdded1),
-                "The list of Orders should include orderAdded1.");
-        assertTrue(check2.contains(orderAdded2),
-                "The list of Orders should include orderAdded2.");
+        for(Order o: check2) {
+            if(o.getOrderNumber() == orderAdded1.getOrderNumber()) {
+                orderCheck1 = o;
+            }
+            else {
+                orderCheck2 = o;
+            }
+        }
+
+        assert orderCheck1 != null;
+        assertEquals(orderAdded1.getOrderNumber(),
+                orderCheck1.getOrderNumber(),
+                "Checking Order Number.");
+
+        assertEquals(orderAdded1.getCustomerName(),
+                orderCheck1.getCustomerName(),
+                "Checking Customer Name.");
+
+        assertEquals(orderAdded1.getArea(),
+                orderCheck1.getArea(),
+                "Checking Area.");
+
+        assertEquals(orderAdded1.getTax(),
+                orderCheck1.getTax(),
+                "Checking Tax.");
+
+        assertEquals(orderAdded1.getTotal(),
+                orderCheck1.getTotal(),
+                "Checking Order Total.");
+
+        assertEquals(orderAdded1.getDate(),
+                orderCheck1.getDate(),
+                "Checking Order Date.");
+
+        assertEquals(orderAdded1.getState().getStateName(),
+                orderCheck1.getState().getStateName(),
+                "Checking Order State.");
+
+        assertEquals(orderAdded1.getProduct().getProductType(),
+                orderCheck1.getProduct().getProductType(),
+                "Checking Order Product.");
+
+
+        assert orderCheck2 != null;
+        assertEquals(orderAdded2.getOrderNumber(),
+                orderCheck2.getOrderNumber(),
+                "Checking Order Number.");
+
+        assertEquals(orderAdded2.getCustomerName(),
+                orderCheck2.getCustomerName(),
+                "Checking Customer Name.");
+
+        assertEquals(orderAdded2.getArea(),
+                orderCheck2.getArea(),
+                "Checking Area.");
+
+        assertEquals(orderAdded2.getTax(),
+                orderCheck2.getTax(),
+                "Checking Tax.");
+
+        assertEquals(orderAdded2.getTotal(),
+                orderCheck2.getTotal(),
+                "Checking Order Total.");
+
+        assertEquals(orderAdded2.getDate(),
+                orderCheck2.getDate(),
+                "Checking Order Date.");
+
+        assertEquals(orderAdded2.getState().getStateName(),
+                orderCheck2.getState().getStateName(),
+                "Checking Order State.");
+
+        assertEquals(orderAdded2.getProduct().getProductType(),
+                orderCheck2.getProduct().getProductType(),
+                "Checking Order Product.");
+
     }
 
     @Test
     void removeOrder() {
         //Adds Orders to remove them
-        LocalDate date = LocalDate.now();
         Order orderAdded1 = new Order(1, "1", "1", new BigDecimal(1), "1",
                 new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1),
                 new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), date);
         dao.addOrder(orderAdded1);
 
-        Order orderAdded2 = new Order(2, "1", "1", new BigDecimal(1), "1",
-                new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1),
-                new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), date);
+        Order orderAdded2 = new Order(2, "2", "2", new BigDecimal(2), "2",
+                new BigDecimal(2), new BigDecimal(2), new BigDecimal(2), new BigDecimal(2),
+                new BigDecimal(2), new BigDecimal(2), new BigDecimal(2), date);
         dao.addOrder(orderAdded2);
 
         //Removes orders and checks the size to see if they were removed
         dao.removeOrder(date, 1);
         List<Order> check1 = dao.getOrders(date);
         assertEquals(1, check1.size());
+        //Only one Order in list
+        Order orderCheck = check1.get(0);
 
         //Checks if it removes the correct order
-        assertTrue(check1.contains(orderAdded2),
-                "The list of Orders should include orderAdded2.");
+        assertEquals(orderAdded2.getOrderNumber(),
+                orderCheck.getOrderNumber(),
+                "Checking Order Number.");
+
+        assertEquals(orderAdded2.getCustomerName(),
+                orderCheck.getCustomerName(),
+                "Checking Customer Name.");
+
+        assertEquals(orderAdded2.getArea(),
+                orderCheck.getArea(),
+                "Checking Area.");
+
+        assertEquals(orderAdded2.getTax(),
+                orderCheck.getTax(),
+                "Checking Tax.");
+
+        assertEquals(orderAdded2.getTotal(),
+                orderCheck.getTotal(),
+                "Checking Order Total.");
+
+        assertEquals(orderAdded2.getDate(),
+                orderCheck.getDate(),
+                "Checking Order Date.");
+
+        assertEquals(orderAdded2.getState().getStateName(),
+                orderCheck.getState().getStateName(),
+                "Checking Order State.");
+
+        assertEquals(orderAdded2.getProduct().getProductType(),
+                orderCheck.getProduct().getProductType(),
+                "Checking Order Product.");
 
         //Checks if the list is empty since all two object were removed
         dao.removeOrder(date, 2);
@@ -171,28 +287,35 @@ class FlooringDaoImplTest {
     }
     @Test
     void getAllOrder() {
-        //Creates an Order to add
-        Order orderAdded1 = new Order(1, "1", "1", new BigDecimal(1), "1",
-                new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1),
-                new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), LocalDate.now());
-        dao.addOrder(orderAdded1);
+        try {
+            //Creates an Order to add
+            Order orderAdded1 = new Order(1, "1", "1", new BigDecimal(1), "1",
+                    new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1),
+                    new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), date);
+            dao.addOrder(orderAdded1);
 
-        //Creates an Order with a different date
-        Order orderAdded2 = new Order(1, "1", "1", new BigDecimal(1), "1",
-                new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1),
-                new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), LocalDate.now().minusDays(1));
-        dao.addOrder(orderAdded2);
+            //Creates an Order with a different date
+            Order orderAdded2 = new Order(1, "1", "1", new BigDecimal(1), "1",
+                    new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1),
+                    new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), date.minusDays(1));
+            dao.addOrder(orderAdded2);
 
 
-        //Checks size to make sure all Orders were grabbed
-        List<Order> check = dao.getAllOrder();
-        assertEquals(2, check.size());
+            //Checks size to make sure all Orders were grabbed
+            List<Order> check = dao.getAllOrder();
+            assertEquals(2, check.size());
 
-        //Checks if correct order were added
-        assertTrue(check.contains(orderAdded1),
-                "The list of Orders should include orderAdded1.");
-        assertTrue(check.contains(orderAdded2),
-                "The list of Orders should include orderAdded2.");
+            //Checks if correct order were added
+            assertTrue(check.contains(orderAdded1),
+                    "The list of Orders should include orderAdded1.");
+            assertTrue(check.contains(orderAdded2),
+                    "The list of Orders should include orderAdded2.");
+        } finally {
+            List<Order> listOrder = dao.getOrders(date.minusDays(1));
+            for(Order o: listOrder) {
+                dao.removeOrder(date.minusDays(1), o.getOrderNumber());
+            }
+        }
     }
     @Test
     void addState() {
