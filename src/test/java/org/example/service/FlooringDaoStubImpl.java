@@ -107,6 +107,11 @@ public class FlooringDaoStubImpl implements FlooringDao {
     }
 
     @Override
+    public List<State> getAllStates() {
+        return null;
+    }
+
+    @Override
     public void exportAll() {
 
     }
