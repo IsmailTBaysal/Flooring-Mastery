@@ -26,12 +26,28 @@ public class FlooringView {
         return io.readInt("Please select from the above choices.", 1, 6);
     }
 
-    public Order getNewOrderInfo() {
-        LocalDate orderDate = LocalDate.parse(io.readString("Please enter order date (YYYY-MM-DD) : "));
+    public Order getNewOrderInfo(List<Product> availableProducts) {
+        LocalDate orderDate;
+        do {
+            orderDate = io.readLocalDate("Please enter order date (YYYY-MM-DD): ");
+            if (orderDate.isBefore(LocalDate.now())) {
+                io.print("Order date must be in the future.");
+            }
+        } while (orderDate.isBefore(LocalDate.now()));
+
         String customerName = io.readString("Please enter customer name: ");
         String state = io.readString("Please enter state: ");
+
+        availableProducts.forEach(product -> io.print(product.toString()));
         String productType = io.readString("Please enter product type: ");
-        BigDecimal area = io.readBigDecimal("Please enter area: ");
+
+        BigDecimal area;
+        do {
+            area = io.readBigDecimal("Please enter area: ");
+            if (area.compareTo(new BigDecimal("100")) < 0) {
+                io.print("Minimum order size is 100 sq ft.");
+            }
+        } while (area.compareTo(new BigDecimal("100")) < 0);
 
         //State orderState = new State(state);
         //Product orderProductType = new Product(productType);

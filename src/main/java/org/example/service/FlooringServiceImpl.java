@@ -139,7 +139,6 @@ public class FlooringServiceImpl implements FlooringService{
         order.setState(state);
 
         calculateOrder(order);
-
         validateOrderData(order);
 
         dao.addOrder(order);
@@ -168,5 +167,9 @@ public class FlooringServiceImpl implements FlooringService{
             lastUsedOrderNumber++;
             return lastUsedOrderNumber;
         }
+    }
+    @Override
+    public List<Product> getProducts() {
+        return dao.getAllProduct();
     }
 }

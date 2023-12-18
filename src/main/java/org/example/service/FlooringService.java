@@ -3,6 +3,7 @@
 package org.example.service;
 
 import org.example.dto.Order;
+import org.example.dto.Product;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,4 +25,5 @@ public interface FlooringService {
     void validateOrderData(Order order) throws FlooringDataValidationException;
 
     int generateUniqueOrderNumber(LocalDate date);
+    List<Product> getProducts();
 }
