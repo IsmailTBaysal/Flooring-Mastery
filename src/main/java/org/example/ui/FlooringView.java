@@ -27,7 +27,7 @@ public class FlooringView {
     }
 
     public Order getNewOrderInfo() {
-        LocalDate orderDate = LocalDate.parse(io.readString("Please enter order date (YYYY-MM-DD) : "));
+        LocalDate orderDate = io.readLocalDate("Please enter order date (YYYY-MM-DD) : ");
         String customerName = io.readString("Please enter customer name: ");
         String state = io.readString("Please enter state: ");
         String productType = io.readString("Please enter product type: ");

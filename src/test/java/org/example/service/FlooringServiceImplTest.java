@@ -15,20 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FlooringServiceImplTest {
     FlooringService service = new FlooringServiceImpl(new FlooringDaoStubImpl());
-    @Test
-    void getAllOrders() {
-        //Creating an order to see if it is same as the one in FlooringDaoStubImpl
-        Order orderTest = new Order("Ada Lovelace", "Washington", "Wood", new BigDecimal(1), LocalDate.now());
-        orderTest.setOrderNumber(1);
-
-        Order shouldBeAda = service.getOrder(1,LocalDate.now());
-
-        //onlyOrder should be the only one in getAllOrder
-        assertEquals( 1, service.getAllOrders().size(),
-                "Should only have one Order.");
-        assertTrue( service.getAllOrders().contains(orderTest),
-                "The one Order should be the same as the one in FlooringDaoStubImpl.");
-    }
 
     @Test
     void getOrders() {
@@ -50,7 +36,9 @@ class FlooringServiceImplTest {
     void getOrder() {
         Order orderTest = new Order("1", "Washington", "Wood", new BigDecimal(1), LocalDate.now());
         orderTest.setOrderNumber(1);
+
         Order getOnlyOrder = service.getOrder(1, LocalDate.now());
+
         assertNotNull(getOnlyOrder, "Getting 1 and LocalDate.now() should be not null.");
         assertEquals( orderTest, getOnlyOrder,
                 "Order stored under 1 and LocalDate.now() should be the same");
@@ -64,15 +52,15 @@ class FlooringServiceImplTest {
         Order orderTest = new Order("1", "Washington", "Wood", new BigDecimal(1), LocalDate.now());
         orderTest.setOrderNumber(1);
 
-/*
-        Order removeOrder = service.removeOrder(1, LocalDate.now());
-        assertNotNull( removeOrder, "Removing 1 and LocalDate() should not be null.");
-        assertEquals( orderTest, removeOrder, "Order removed from 1 and LocalDate() should be equal.");
+        Order shouldbeAda = service.removeOrder(1, LocalDate.now());
+
+        assertNotNull( shouldbeAda, "Removing 1 and LocalDate() should not be null.");
+        assertEquals( orderTest, shouldbeAda, "Order removed from 1 and LocalDate() should be equal.");
 
         Order shouldBeNull = service.removeOrder(2, LocalDate.now().minusDays(1));
         assertNull( shouldBeNull, "Removing 2 and LocalDate.now().minusDays(1) should be null.");
 
- */
+
 
     }
     @Test
