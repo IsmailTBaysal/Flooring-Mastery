@@ -14,18 +14,25 @@ import java.util.List;
 public class FlooringDaoStubImpl implements FlooringDao {
 
     public Order onlyOrder;
-    public State onlyState;
-    public Product onlyProduct;
+    public ArrayList<State> onlyState;
+    public ArrayList<Product>  onlyProduct;
 
     public FlooringDaoStubImpl() {
         onlyOrder = new Order("1", "Washington", "Wood", new BigDecimal(1), LocalDate.now());
         onlyOrder.setOrderNumber(1);
-        onlyState = new State("Washington", new BigDecimal(1));
-        onlyProduct = new Product("Wood",
+        onlyState.add(new State("Washington", new BigDecimal(1)));
+        onlyState.add(new State("Florida", new BigDecimal(1)));
+        onlyProduct.add(new Product("Wood",
                 new BigDecimal(1),
                 new BigDecimal(1),
                 new BigDecimal(1),
-                new BigDecimal(1));
+                new BigDecimal(1)));
+        onlyProduct.add(new Product("Rock",
+                new BigDecimal(1),
+                new BigDecimal(1),
+                new BigDecimal(1),
+                new BigDecimal(1)));
+
     }
     public FlooringDaoStubImpl(Order floridaOrder) {
         customValues(floridaOrder);
@@ -87,12 +94,12 @@ public class FlooringDaoStubImpl implements FlooringDao {
 
     @Override
     public State getState(String stateName) {
-        if(stateName.equalsIgnoreCase(onlyState.getStateName())) {
-            return onlyState;
+        for (State state : onlyState) {
+            if (state.getStateName().equalsIgnoreCase(stateName)) {
+                return state;
+            }
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     @Override
@@ -102,12 +109,12 @@ public class FlooringDaoStubImpl implements FlooringDao {
 
     @Override
     public Product getProduct(String productName) {
-        if(productName.equalsIgnoreCase(onlyProduct.getProductType())) {
-            return onlyProduct;
+        for (Product product : onlyProduct) {
+            if (product.getProductType().equalsIgnoreCase(productName)) {
+                return product;
+            }
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     @Override
