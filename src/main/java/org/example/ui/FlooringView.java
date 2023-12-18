@@ -26,8 +26,6 @@ public class FlooringView {
         return io.readInt("Please select from the above choices.", 1, 6);
     }
 
-
-
     public Order getNewOrderInfo(List<Product> availableProducts) {
         LocalDate orderDate;
         do {
