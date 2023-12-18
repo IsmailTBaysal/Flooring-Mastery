@@ -48,7 +48,7 @@ class FlooringServiceImplTest {
     }
 
     @Test
-    void removeOrder() throws Exception {
+    void removeOrder() {
         Order orderTest = new Order("1", "Washington", "Wood", new BigDecimal(1), LocalDate.now());
         orderTest.setOrderNumber(1);
 
