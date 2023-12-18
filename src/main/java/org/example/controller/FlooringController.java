@@ -126,6 +126,7 @@ public class FlooringController {
         view.displayCreateOrderBanner();
         boolean hasErrors = false;
         do {
+
             Order currentOrder = view.getNewOrderInfo();
 
             int uniqueOrderNumber = service.generateUniqueOrderNumber(currentOrder.getDate());
