@@ -102,9 +102,26 @@ public class Order {
 
     @Override
     public boolean equals(Object o) {
+
+        if (this == o) return true;
+        if (!(o instanceof Order)) return false;
+
+        Order order = (Order) o; // Explicit casting
+
+        return getOrderNumber() == order.getOrderNumber() &&
+                Objects.equals(getCustomerName(), order.getCustomerName()) &&
+                Objects.equals(getArea(), order.getArea()) &&
+                Objects.equals(getProduct(), order.getProduct()) &&
+                Objects.equals(getState(), order.getState()) &&
+                Objects.equals(getTax(), order.getTax()) &&
+                Objects.equals(getTotal(), order.getTotal()) &&
+                Objects.equals(getDate(), order.getDate());
+
+        /*
         if (this == o) return true;
         if (!(o instanceof Order order)) return false;
         return getOrderNumber() == order.getOrderNumber() && Objects.equals(getCustomerName(), order.getCustomerName()) && Objects.equals(getArea(), order.getArea()) && Objects.equals(getProduct(), order.getProduct()) && Objects.equals(getState(), order.getState()) && Objects.equals(getTax(), order.getTax()) && Objects.equals(getTotal(), order.getTotal()) && Objects.equals(getDate(), order.getDate());
+        */
     }
 
     @Override

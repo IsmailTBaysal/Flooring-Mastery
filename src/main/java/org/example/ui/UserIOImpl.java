@@ -1,9 +1,11 @@
 package org.example.ui;
 
+import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Scanner;
-
+@Component
 public class UserIOImpl implements UserIO{
     final private Scanner console = new Scanner(System.in);
 

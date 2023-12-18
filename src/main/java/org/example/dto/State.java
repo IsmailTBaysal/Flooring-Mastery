@@ -37,8 +37,18 @@ public class State {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
+        if (!(o instanceof State)) return false;
+
+        State state = (State) o; // Explicit casting to State
+        return Objects.equals(getStateAbbreviation(), state.getStateAbbreviation()) &&
+                Objects.equals(getStateName(), state.getStateName()) &&
+                Objects.equals(getTaxRate(), state.getTaxRate());
+        /*
+        if (this == o) return true;
         if (!(o instanceof State state)) return false;
         return Objects.equals(getStateAbbreviation(), state.getStateAbbreviation()) && Objects.equals(getStateName(), state.getStateName()) && Objects.equals(getTaxRate(), state.getTaxRate());
+
+         */
     }
 
     @Override

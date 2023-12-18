@@ -3,6 +3,7 @@ package org.example.dao;
 import org.example.dto.Order;
 import org.example.dto.Product;
 import org.example.dto.State;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.math.BigDecimal;
@@ -11,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
+@Component
 public class FlooringDaoImpl implements FlooringDao{
     private Map<LocalDate, ArrayList<Order>> orderMap = new HashMap<>();
     private Map<String, State> stateMap = new HashMap<>();
