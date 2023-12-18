@@ -159,4 +159,8 @@ public class FlooringServiceImpl implements FlooringService{
     public List<Product> getProducts() {
         return dao.getAllProduct();
     }
+    @Override
+    public List<State> getStates() {
+        return dao.getAllStates();
+    }
 }

@@ -119,6 +119,11 @@ public class FlooringDaoImpl implements FlooringDao{
         readFileProduct();
         return new ArrayList<>(productMap.values());
     }
+    @Override
+    public List<State> getAllStates() {
+        readFileState();
+        return new ArrayList<>(stateMap.values());
+    }
     public void readFileOrder(LocalDate date) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMddyyyy");
