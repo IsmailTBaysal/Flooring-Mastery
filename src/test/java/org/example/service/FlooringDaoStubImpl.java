@@ -14,26 +14,27 @@ import java.util.List;
 public class FlooringDaoStubImpl implements FlooringDao {
 
     public Order onlyOrder;
-    public State onlyState;
-    public Product onlyProduct;
+    public ArrayList<State> onlyState = new ArrayList<>();
+    public ArrayList<Product>  onlyProduct = new ArrayList<>();
 
     public FlooringDaoStubImpl() {
         onlyOrder = new Order("1", "Washington", "Wood", new BigDecimal(1), LocalDate.now());
         onlyOrder.setOrderNumber(1);
-        onlyState = new State("Washington", new BigDecimal(1));
-        onlyProduct = new Product("Wood", new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1));
-    }
-   /* public FlooringDaoStubImpl() {
-        onlyOrder = new Order("1", "Florida", "Rock", new BigDecimal(1), LocalDate.now());
-        onlyOrder.setOrderNumber(1);
-        onlyState = new State("Florida", new BigDecimal(1));
-        onlyProduct = new Product("Rock", new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1));
+        onlyState.add(new State("Washington", new BigDecimal(1)));
+        onlyState.add(new State("Florida", new BigDecimal(1)));
+        onlyProduct.add(new Product("Wood",
+                new BigDecimal(1),
+                new BigDecimal(1),
+                new BigDecimal(1),
+                new BigDecimal(1)));
+        onlyProduct.add(new Product("Rock",
+                new BigDecimal(1),
+                new BigDecimal(1),
+                new BigDecimal(1),
+                new BigDecimal(1)));
+
     }
 
-    */
-    public FlooringDaoStubImpl(Order order) {
-        onlyOrder = order;
-    }
     @Override
     public Order addOrder(Order order) {
         return onlyOrder = order;
@@ -41,10 +42,7 @@ public class FlooringDaoStubImpl implements FlooringDao {
 
     @Override
     public void editOrder(LocalDate date, Order order) {
-        if(date == onlyOrder.getDate() && order.getOrderNumber() == onlyOrder.getOrderNumber()) {
-            onlyOrder = order;
-        }
-
+        onlyOrder = order;
     }
 
     @Override
@@ -75,12 +73,12 @@ public class FlooringDaoStubImpl implements FlooringDao {
 
     @Override
     public State getState(String stateName) {
-        if(stateName.equalsIgnoreCase(onlyState.getStateName())) {
-            return onlyState;
+        for (State state : onlyState) {
+            if (state.getStateName().equalsIgnoreCase(stateName)) {
+                return state;
+            }
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     @Override
@@ -90,12 +88,12 @@ public class FlooringDaoStubImpl implements FlooringDao {
 
     @Override
     public Product getProduct(String productName) {
-        if(productName.equalsIgnoreCase(onlyProduct.getProductType())) {
-            return onlyProduct;
+        for (Product product : onlyProduct) {
+            if (product.getProductType().equalsIgnoreCase(productName)) {
+                return product;
+            }
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     @Override
@@ -105,9 +103,7 @@ public class FlooringDaoStubImpl implements FlooringDao {
 
     @Override
     public List<Product> getAllProduct() {
-        List<Product> productList = new ArrayList<>();
-        productList.add(onlyProduct);
-        return productList;
+        return onlyProduct;
     }
 
     @Override

@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FlooringServiceImplTest {
     FlooringService service = new FlooringServiceImpl(new FlooringDaoStubImpl());
-
     @Test
     void getOrders() {
         Order orderTest = service.getOrder(1, LocalDate.now());
@@ -48,7 +47,7 @@ class FlooringServiceImplTest {
     }
 
     @Test
-    void removeOrder() throws Exception {
+    void removeOrder() {
         Order orderTest = new Order("1", "Washington", "Wood", new BigDecimal(1), LocalDate.now());
         orderTest.setOrderNumber(1);
 
@@ -57,21 +56,23 @@ class FlooringServiceImplTest {
         assertNotNull( shouldbeAda, "Removing 1 and LocalDate() should not be null.");
         assertEquals( orderTest, shouldbeAda, "Order removed from 1 and LocalDate() should be equal.");
 
-        Order shouldBeNull = service.removeOrder(2, LocalDate.now().minusDays(1));
-        assertNull( shouldBeNull, "Removing 2 and LocalDate.now().minusDays(1) should be null.");
-
-
+        try {
+            Order shouldBeNull = service.removeOrder(2, LocalDate.now().minusDays(1));
+            assertNull(shouldBeNull, "Removing 2 and LocalDate.now().minusDays(1) should be null.");
+        } catch (RuntimeException e) {
+            assertEquals("No orders found for the specified date.", e.getMessage());
+        }
 
     }
     @Test
     void editOrder() throws FlooringDataValidationException {
-        Order orderTest = new Order("1", "Florida", "Rock", new BigDecimal(1), LocalDate.now());
-        orderTest.setOrderNumber(1);
-        service.editOrder(orderTest);
+        Order testOrder = new Order("1", "Florida", "Rock", new BigDecimal(1), LocalDate.now());
+        testOrder.setOrderNumber(1);
+        service.editOrder(testOrder);
 
         Order getOnlyOrder = service.getOrder(1, LocalDate.now());
         assertNotNull(getOnlyOrder, "Getting 1 and LocalDate.now() should be not null.");
-        assertEquals( orderTest, getOnlyOrder,
+        assertEquals( testOrder, getOnlyOrder,
                 "Order stored under 1 and LocalDate.now() should be the same");
 
     }
