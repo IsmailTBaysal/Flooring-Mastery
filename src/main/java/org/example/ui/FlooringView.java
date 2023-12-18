@@ -103,7 +103,7 @@ public class FlooringView {
             io.print("Total: " + order.getTotal());
             //io.print("");
         } else {
-            io.print("No such order.");
+            io.print("No Order Found.");
         }
         //io.readString("Please hit enter to continue.");
     }

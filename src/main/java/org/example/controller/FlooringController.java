@@ -81,11 +81,16 @@ public class FlooringController {
         LocalDate date = view.getDate();
         int orderNumber = view.getOrderNumber();
         view.displayOrder(service.getOrder(orderNumber, date));
-        if (view.getConfirmation()){ // Order will be deleted after user confirms
-            service.removeOrder(orderNumber, date);
-            view.displayRemoveSuccessBanner();
-        }else {
-            view.displayRemoveCanceledBanner();
+        if (service.getOrder(orderNumber, date) != null) {
+            if (view.getConfirmation()){ // Order will be deleted after user confirms
+                service.removeOrder(orderNumber, date);
+                view.displayRemoveSuccessBanner();
+            }else {
+                view.displayRemoveCanceledBanner();
+            }
+        }
+        else {
+            view.displayErrorMessage("No order found at " + date + " and number " + orderNumber);
         }
     }
     private void editOrder() throws FlooringDataValidationException {
