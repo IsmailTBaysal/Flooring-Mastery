@@ -44,7 +44,6 @@ public class FlooringView {
         currentOrder.setArea(area);
         currentOrder.setDate(orderDate);
         */
-
         return currentOrder;
     }
 
