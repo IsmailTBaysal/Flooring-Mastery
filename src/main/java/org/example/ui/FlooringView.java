@@ -26,6 +26,8 @@ public class FlooringView {
         return io.readInt("Please select from the above choices.", 1, 6);
     }
 
+
+
     public Order getNewOrderInfo(List<Product> availableProducts) {
         LocalDate orderDate;
         do {
@@ -36,6 +38,7 @@ public class FlooringView {
         } while (orderDate.isBefore(LocalDate.now()));
 
         String customerName = io.readString("Please enter customer name: ");
+
         String state = io.readString("Please enter state: ");
 
         availableProducts.forEach(product -> io.print(product.toString()));
@@ -106,22 +109,20 @@ public class FlooringView {
         io.print("=== ERROR ===");
         io.print(errorMsg);
     }
-
-
     public void displayOrderList(List<Order> orderList) {
         for (Order currentOrder : orderList) {
-            String orderInfo = String.format("Order #%s : %s, %s, %s, %s, %s, %s, %s, %s, %s, %s",
-                    String.valueOf(currentOrder.getOrderNumber()),
+            String orderInfo = String.format("Order #%s : %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s",
+                    currentOrder.getOrderNumber(),
                     currentOrder.getCustomerName(),
                     currentOrder.getState().getStateName(),
-                    currentOrder.getState().getTaxRate().toString(),
+                    currentOrder.getState().getTaxRate(),
                     currentOrder.getProduct().getProductType(),
-                    currentOrder.getArea().toString(),
-                    currentOrder.getProduct().getCostPerSquareFoot().toString(),
-                    currentOrder.getProduct().getLaborCostPerSquareFoot().toString(),
-                    currentOrder.getProduct().getMaterialCost().toString(),
-                    currentOrder.getTax().toString(),
-                    currentOrder.getTotal().toString()
+                    currentOrder.getArea(),
+                    currentOrder.getProduct().getCostPerSquareFoot(),
+                    currentOrder.getProduct().getLaborCostPerSquareFoot(),
+                    currentOrder.getProduct().getMaterialCost(),
+                    currentOrder.getTax(),
+                    currentOrder.getTotal()
             );
             io.print(orderInfo);
         }

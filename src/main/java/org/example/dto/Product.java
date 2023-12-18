@@ -3,6 +3,7 @@
 package org.example.dto;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class Product {
     private String ProductType;
@@ -60,6 +61,29 @@ public class Product {
 
     public void setLaborCost(BigDecimal laborCost) {
         LaborCost = laborCost;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Product product)) return false;
+        return Objects.equals(getProductType(), product.getProductType()) && Objects.equals(getCostPerSquareFoot(), product.getCostPerSquareFoot()) && Objects.equals(getLaborCostPerSquareFoot(), product.getLaborCostPerSquareFoot()) && Objects.equals(getMaterialCost(), product.getMaterialCost()) && Objects.equals(getLaborCost(), product.getLaborCost());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getProductType(), getCostPerSquareFoot(), getLaborCostPerSquareFoot(), getMaterialCost(), getLaborCost());
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "ProductType='" + ProductType + '\'' +
+                ", CostPerSquareFoot=" + CostPerSquareFoot +
+                ", LaborCostPerSquareFoot=" + LaborCostPerSquareFoot +
+                ", MaterialCost=" + MaterialCost +
+                ", LaborCost=" + LaborCost +
+                '}';
     }
 }
 

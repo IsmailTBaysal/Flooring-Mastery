@@ -2,6 +2,7 @@ package org.example.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Order {
     private int orderNumber;
@@ -97,5 +98,31 @@ public class Order {
 
     public LocalDate getDate() {
         return date;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Order order)) return false;
+        return getOrderNumber() == order.getOrderNumber() && Objects.equals(getCustomerName(), order.getCustomerName()) && Objects.equals(getArea(), order.getArea()) && Objects.equals(getProduct(), order.getProduct()) && Objects.equals(getState(), order.getState()) && Objects.equals(getTax(), order.getTax()) && Objects.equals(getTotal(), order.getTotal()) && Objects.equals(getDate(), order.getDate());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getOrderNumber(), getCustomerName(), getArea(), getProduct(), getState(), getTax(), getTotal(), getDate());
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "orderNumber=" + orderNumber +
+                ", customerName='" + customerName + '\'' +
+                ", area=" + area +
+                ", product=" + product +
+                ", state=" + state +
+                ", tax=" + tax +
+                ", total=" + total +
+                ", date=" + date +
+                '}';
     }
 }

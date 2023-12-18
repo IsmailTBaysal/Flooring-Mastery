@@ -23,7 +23,14 @@ public class FlooringDaoStubImpl implements FlooringDao {
         onlyState = new State("Washington", new BigDecimal(1));
         onlyProduct = new Product("Wood", new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1));
     }
+   /* public FlooringDaoStubImpl() {
+        onlyOrder = new Order("1", "Florida", "Rock", new BigDecimal(1), LocalDate.now());
+        onlyOrder.setOrderNumber(1);
+        onlyState = new State("Florida", new BigDecimal(1));
+        onlyProduct = new Product("Rock", new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1));
+    }
 
+    */
     public FlooringDaoStubImpl(Order order) {
         onlyOrder = order;
     }
@@ -43,7 +50,9 @@ public class FlooringDaoStubImpl implements FlooringDao {
     @Override
     public List<Order> getOrders(LocalDate date) {
         List<Order> orderList = new ArrayList<>();
-        orderList.add(onlyOrder);
+        if (date.isEqual(onlyOrder.getDate())) {
+            orderList.add(onlyOrder);
+        }
         return orderList;
     }
 
