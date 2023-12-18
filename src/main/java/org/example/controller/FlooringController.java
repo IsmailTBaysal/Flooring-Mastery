@@ -4,6 +4,7 @@ package org.example.controller;
 
 import org.example.dto.Order;
 import org.example.dto.Product;
+import org.example.dto.State;
 import org.example.service.FlooringDataValidationException;
 import org.example.service.FlooringDuplicateOrderException;
 import org.example.service.FlooringService;
@@ -125,7 +126,9 @@ public class FlooringController {
         boolean hasErrors = false;
         do {
             List<Product> productList = service.getProducts();
-            Order currentOrder = view.getNewOrderInfo(productList);
+            List<State> stateList = service.getStates();
+            Order currentOrder = view.getNewOrderInfo(productList, stateList);
+
 
             int uniqueOrderNumber = service.generateUniqueOrderNumber(currentOrder.getDate());
 
@@ -134,9 +137,12 @@ public class FlooringController {
                 Order calculatedOrder = service.calculateOrder(currentOrder);
 
                 view.displayOrder(calculatedOrder);
-
-                service.createOrder(calculatedOrder);
-                view.displayCreateOrderSuccessBanner();
+                if (view.getConfirmation()){
+                    service.createOrder(calculatedOrder);
+                    view.displayCreateOrderSuccessBanner();
+                }else {
+                    view.displayEditCanceledBanner();
+                }
                 hasErrors = false;
             }
             /*catch (Exception e){
