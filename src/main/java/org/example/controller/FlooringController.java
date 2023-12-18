@@ -3,6 +3,7 @@
 package org.example.controller;
 
 import org.example.dto.Order;
+import org.example.dto.Product;
 import org.example.service.FlooringDataValidationException;
 import org.example.service.FlooringDuplicateOrderException;
 import org.example.service.FlooringService;
@@ -73,9 +74,7 @@ public class FlooringController {
         } catch (Exception e) {
             view.displayErrorMessage(e.getMessage());
         }
-
     }
-
     private void removeOrder() {
         view.displayRemoveOrderBanner();
         LocalDate date = view.getDate();
@@ -88,7 +87,6 @@ public class FlooringController {
             view.displayRemoveCanceledBanner();
         }
     }
-
     private void editOrder() throws FlooringDataValidationException {
         view.displayEditOrderBanner();
         LocalDate date = view.getDate();
@@ -126,13 +124,16 @@ public class FlooringController {
         view.displayCreateOrderBanner();
         boolean hasErrors = false;
         do {
-
-            Order currentOrder = view.getNewOrderInfo();
+            List<Product> productList = service.getProducts();
+            Order currentOrder = view.getNewOrderInfo(productList);
 
             int uniqueOrderNumber = service.generateUniqueOrderNumber(currentOrder.getDate());
-            currentOrder.setOrderNumber(uniqueOrderNumber);
 
             try {
+                currentOrder.setOrderNumber(uniqueOrderNumber);
+
+                view.displayOrder(currentOrder);
+
                 service.createOrder(currentOrder);
                 view.displayCreateOrderSuccessBanner();
                 hasErrors = false;
@@ -141,8 +142,9 @@ public class FlooringController {
                 hasErrors = true;
                 view.displayErrorMessage(e.getMessage());
             }
-            */catch (FlooringDuplicateOrderException | FlooringDataValidationException e) {
-
+            */
+            catch (FlooringDuplicateOrderException | FlooringDataValidationException e) {
+                hasErrors = true;
                 throw new RuntimeException(e);
             }
         }while(hasErrors);
@@ -150,17 +152,18 @@ public class FlooringController {
 
     private void displayOrders(){
 
-    List<Order> orderList = service.getOrders(view.getDate());
+        List<Order> orderList = service.getOrders(view.getDate());
         if (orderList != null) {
             view.displayOrderList(orderList);
         }else {
             view.displayErrorMessage("Error: There is no order on that date.");
         }
-
     }
-
     private int getMenuSelection() {
         return view.printMenuAndGetSelection();
+    }
+    public List<Product> getAvailableProducts() {
+        return service.getProducts();
     }
 
 }
