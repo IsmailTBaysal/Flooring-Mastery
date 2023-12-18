@@ -116,6 +116,7 @@ public class FlooringDaoImpl implements FlooringDao{
 
     @Override
     public List<Product> getAllProduct() {
+        readFileProduct();
         return new ArrayList<>(productMap.values());
     }
     public void readFileOrder(LocalDate date) {
