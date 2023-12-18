@@ -34,25 +34,7 @@ public class FlooringDaoStubImpl implements FlooringDao {
                 new BigDecimal(1)));
 
     }
-    public FlooringDaoStubImpl(Order floridaOrder) {
-        customValues(floridaOrder);
-    }
-   /* public FlooringDaoStubImpl(Order order) {
-        onlyOrder = order;
-    }
-    */
 
-    public void customValues(Order customOrder) { //create a new
-        onlyOrder = customOrder;
-        onlyState = new State(customOrder.getState().getStateName(), new BigDecimal(1));
-        onlyProduct = new Product(
-                customOrder.getProduct().getProductType(),
-                new BigDecimal(1),
-                new BigDecimal(1),
-                new BigDecimal(1),
-                new BigDecimal(1)
-        );
-    }
     @Override
     public Order addOrder(Order order) {
         return onlyOrder = order;
@@ -124,9 +106,7 @@ public class FlooringDaoStubImpl implements FlooringDao {
 
     @Override
     public List<Product> getAllProduct() {
-        List<Product> productList = new ArrayList<>();
-        productList.add(onlyProduct);
-        return productList;
+        return onlyProduct;
     }
 
     @Override
