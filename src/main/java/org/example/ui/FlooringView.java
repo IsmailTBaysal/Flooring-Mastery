@@ -3,14 +3,18 @@ package org.example.ui;
 import org.example.dto.Order;
 import org.example.dto.Product;
 import org.example.dto.State;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
-
+@Component
 public class FlooringView {
     private UserIO io;
     Scanner sc = new Scanner(System.in);
+    @Autowired
     public FlooringView(UserIO io) { // constructor
         this.io = io;
     }

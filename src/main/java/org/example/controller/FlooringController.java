@@ -9,15 +9,17 @@ import org.example.service.FlooringDataValidationException;
 import org.example.service.FlooringDuplicateOrderException;
 import org.example.service.FlooringService;
 import org.example.ui.FlooringView;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-
+@Controller
 public class FlooringController {
     private FlooringView view;
     private FlooringService service;
-
+    @Autowired
     public FlooringController(FlooringService service,FlooringView view){
         this.service=service;
         this.view =view;

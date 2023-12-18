@@ -5,16 +5,18 @@ import org.example.dao.FlooringDao;
 import org.example.dto.Order;
 import org.example.dto.Product;
 import org.example.dto.State;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.List;
-
+@Component
 public class FlooringServiceImpl implements FlooringService{
 
     FlooringDao dao;
-
+    @Autowired
     public FlooringServiceImpl(FlooringDao dao) {
         this.dao = dao;
     }

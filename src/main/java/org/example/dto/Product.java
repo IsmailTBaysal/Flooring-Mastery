@@ -65,9 +65,22 @@ public class Product {
 
     @Override
     public boolean equals(Object o) {
+
+        if (this == o) return true;
+        if (!(o instanceof Product)) return false;
+        Product product = (Product) o;
+        return Objects.equals(getProductType(), product.getProductType()) &&
+                Objects.equals(getCostPerSquareFoot(), product.getCostPerSquareFoot()) &&
+                Objects.equals(getLaborCostPerSquareFoot(), product.getLaborCostPerSquareFoot()) &&
+                Objects.equals(getMaterialCost(), product.getMaterialCost()) &&
+                Objects.equals(getLaborCost(), product.getLaborCost());
+
+        /*
         if (this == o) return true;
         if (!(o instanceof Product product)) return false;
         return Objects.equals(getProductType(), product.getProductType()) && Objects.equals(getCostPerSquareFoot(), product.getCostPerSquareFoot()) && Objects.equals(getLaborCostPerSquareFoot(), product.getLaborCostPerSquareFoot()) && Objects.equals(getMaterialCost(), product.getMaterialCost()) && Objects.equals(getLaborCost(), product.getLaborCost());
+
+         */
     }
 
     @Override
