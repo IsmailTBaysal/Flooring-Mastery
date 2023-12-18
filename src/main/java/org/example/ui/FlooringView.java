@@ -26,8 +26,6 @@ public class FlooringView {
         return io.readInt("Please select from the above choices.", 1, 6);
     }
 
-
-
     public Order getNewOrderInfo(List<Product> availableProducts) {
         LocalDate orderDate;
         do {
@@ -40,8 +38,9 @@ public class FlooringView {
         String customerName = io.readString("Please enter customer name: ");
 
         String state = io.readString("Please enter state: ");
+        io.print("Product types:\n");
+        availableProducts.forEach(product -> io.print(product.getProductType() + " - Cost per square foot: " + product.getCostPerSquareFoot() + ", Labor cost per square foot: " + product.getLaborCostPerSquareFoot()));
 
-        availableProducts.forEach(product -> io.print(product.toString()));
         String productType = io.readString("Please enter product type: ");
 
         BigDecimal area;

@@ -108,10 +108,10 @@ public class FlooringController {
             existingOrder.getProduct().setProductType(newProductType);
             existingOrder.setArea(newArea);
 
-            // Calculate the order if state, product type, or area are changed
-//            view.displayOrder(existingOrder);
+            Order calculatedOrder = service.calculateOrder(existingOrder);
+
             if (view.getConfirmation()){
-                service.editOrder(existingOrder);
+                service.editOrder(calculatedOrder);
 
                 view.displayEditSuccessBanner();
             }else {
@@ -131,10 +131,11 @@ public class FlooringController {
 
             try {
                 currentOrder.setOrderNumber(uniqueOrderNumber);
+                Order calculatedOrder = service.calculateOrder(currentOrder);
 
-                view.displayOrder(currentOrder);
+                view.displayOrder(calculatedOrder);
 
-                service.createOrder(currentOrder);
+                service.createOrder(calculatedOrder);
                 view.displayCreateOrderSuccessBanner();
                 hasErrors = false;
             }

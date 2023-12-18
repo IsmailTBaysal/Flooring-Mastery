@@ -63,9 +63,20 @@ public class FlooringServiceImpl implements FlooringService{
             throw new IllegalArgumentException("Order, Product, and State must not be null");
         }
 
+        String productString = order.getProduct().getProductType().substring(0,1).toUpperCase()
+                + order.getProduct().getProductType().substring(1).toLowerCase();
+
+        Product product = dao.getProduct(productString);
+
+        order.setProduct(product);
+
+        String stateString = order.getState().getStateName().substring(0,1).toUpperCase()
+                + order.getState().getStateName().substring(1).toLowerCase();
+        State state = dao.getState(stateString);
+
+        order.setState(state);
+
         BigDecimal area = order.getArea();
-        Product product = order.getProduct();
-        State state = order.getState();
 
         BigDecimal costPerSquareFoot = product.getCostPerSquareFoot();
         BigDecimal laborCostPerSquareFoot = product.getLaborCostPerSquareFoot();
@@ -89,22 +100,6 @@ public class FlooringServiceImpl implements FlooringService{
     @Override
     public void editOrder(Order order) throws FlooringDataValidationException {
 
-        // Getting Product and State details from database here:
-        String productString = order.getProduct().getProductType().substring(0,1).toUpperCase()
-                + order.getProduct().getProductType().substring(1).toLowerCase();
-
-        Product product = dao.getProduct(productString);
-
-        order.setProduct(product);
-
-        String stateString = order.getState().getStateName().substring(0,1).toUpperCase()
-                + order.getState().getStateName().substring(1).toLowerCase();
-        State state = dao.getState(stateString);
-
-        order.setState(state);
-
-        calculateOrder(order);
-
         validateOrderData(order);
 
         dao.editOrder(order.getDate(), order);
@@ -127,20 +122,10 @@ public class FlooringServiceImpl implements FlooringService{
             }
         }
         // Getting Product and State details from database here:
-        String productString = order.getProduct().getProductType().substring(0,1).toUpperCase()
-                + order.getProduct().getProductType().substring(1).toLowerCase();
 
-        Product product = dao.getProduct(productString);
 
-        order.setProduct(product);
+//        calculateOrder(order);
 
-        String stateString = order.getState().getStateName().substring(0,1).toUpperCase()
-                + order.getState().getStateName().substring(1).toLowerCase();
-        State state = dao.getState(stateString);
-
-        order.setState(state);
-
-        calculateOrder(order);
         validateOrderData(order);
 
         dao.addOrder(order);
