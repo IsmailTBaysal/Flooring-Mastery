@@ -32,6 +32,9 @@ public class FlooringServiceImpl implements FlooringService{
     @Override
     public Order getOrder(int orderNumber, LocalDate date) {
         List<Order> orderList = dao.getOrders(date);
+        if(orderList == null) {
+            return null;
+        }
         for (Order i : orderList){
             if (i.getOrderNumber() == orderNumber){
                 return i;

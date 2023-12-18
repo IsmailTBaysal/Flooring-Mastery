@@ -192,16 +192,51 @@ public class FlooringView {
         String result = io.readString("Place the order? (Y/N): ");
         return result.equalsIgnoreCase("Y");
     }
-    public String getUpdatedCustomerName(String currentCustomerName) {
+    public String getUpdatedCustomerName() {
         return io.readString("Enter new customer name: ");
     }
-    public String getUpdatedState(String currentCustomerName) {
-        return io.readString("Enter new state: ");
+    public String getUpdatedState(List<State> availableStates) {
+        boolean validState = false;
+        String state = "";
+        do {
+            state = io.readString("Enter new state: ");
+            for (State s : availableStates) {
+                if (s.getStateName().equalsIgnoreCase(state)) {
+                    validState = true;
+                    break;
+                }
+            }
+            if(!validState) {
+                io.print("We do not service " + state);
+            }
+        } while(!validState);
+        return state;
     }
-    public String getUpdatedProductType(String currentCustomerName) {
-        return io.readString("Enter new product: ");
+    public String getUpdatedProductType(List<Product> availableProducts) {
+        boolean validProduct = false;
+        String productType = "";
+        do {
+            productType = io.readString("Enter new product: ");
+            for (Product p : availableProducts) {
+                if (p.getProductType().equalsIgnoreCase(productType)) {
+                    validProduct = true;
+                    break;
+                }
+            }
+            if(!validProduct) {
+                io.print(productType + " is an invalid product type");
+            }
+        } while (!validProduct);
+        return productType;
     }
-    public BigDecimal getUpdatedArea(BigDecimal currentCustomerName) {
-        return io.readBigDecimal("Enter new area: ");
+    public BigDecimal getUpdatedArea() {
+        BigDecimal area;
+        do {
+            area = io.readBigDecimal("Enter new area: ");
+            if (area.compareTo(new BigDecimal("100")) < 0) {
+                io.print("Minimum order size is 100 sq ft.");
+            }
+        } while (area.compareTo(new BigDecimal("100")) < 0);
+        return area;
     }
 }

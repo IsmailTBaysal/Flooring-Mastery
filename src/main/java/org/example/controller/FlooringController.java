@@ -96,12 +96,14 @@ public class FlooringController {
 
         if (existingOrder != null){
             view.displayOrder(existingOrder);
+            List<Product> productList = service.getProducts();
+            List<State> stateList = service.getStates();
 
             // Ask the user for each field
-            String newCustomerName = view.getUpdatedCustomerName(existingOrder.getCustomerName());
-            String newState = view.getUpdatedState(existingOrder.getState().getStateName());
-            String newProductType = view.getUpdatedProductType(existingOrder.getProduct().getProductType());
-            BigDecimal newArea = view.getUpdatedArea(existingOrder.getArea());
+            String newCustomerName = view.getUpdatedCustomerName();
+            String newState = view.getUpdatedState(stateList);
+            String newProductType = view.getUpdatedProductType(productList);
+            BigDecimal newArea = view.getUpdatedArea();
 
             // Editing Order
             existingOrder.setCustomerName(newCustomerName);
@@ -110,7 +112,7 @@ public class FlooringController {
             existingOrder.setArea(newArea);
 
             Order calculatedOrder = service.calculateOrder(existingOrder);
-
+            view.displayOrder(calculatedOrder);
             if (view.getConfirmation()){
                 service.editOrder(calculatedOrder);
 
@@ -118,6 +120,9 @@ public class FlooringController {
             }else {
                 view.displayEditCanceledBanner();
             }
+        }
+        else {
+            view.displayErrorMessage("No order found at " + date + " and number " + orderNumber);
         }
     }
 
