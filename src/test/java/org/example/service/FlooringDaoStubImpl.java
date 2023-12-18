@@ -21,18 +21,30 @@ public class FlooringDaoStubImpl implements FlooringDao {
         onlyOrder = new Order("1", "Washington", "Wood", new BigDecimal(1), LocalDate.now());
         onlyOrder.setOrderNumber(1);
         onlyState = new State("Washington", new BigDecimal(1));
-        onlyProduct = new Product("Wood", new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1));
+        onlyProduct = new Product("Wood",
+                new BigDecimal(1),
+                new BigDecimal(1),
+                new BigDecimal(1),
+                new BigDecimal(1));
     }
-   /* public FlooringDaoStubImpl() {
-        onlyOrder = new Order("1", "Florida", "Rock", new BigDecimal(1), LocalDate.now());
-        onlyOrder.setOrderNumber(1);
-        onlyState = new State("Florida", new BigDecimal(1));
-        onlyProduct = new Product("Rock", new BigDecimal(1), new BigDecimal(1), new BigDecimal(1), new BigDecimal(1));
+    public FlooringDaoStubImpl(Order floridaOrder) {
+        customValues(floridaOrder);
     }
-
-    */
-    public FlooringDaoStubImpl(Order order) {
+   /* public FlooringDaoStubImpl(Order order) {
         onlyOrder = order;
+    }
+    */
+
+    public void customValues(Order customOrder) { //create a new
+        onlyOrder = customOrder;
+        onlyState = new State(customOrder.getState().getStateName(), new BigDecimal(1));
+        onlyProduct = new Product(
+                customOrder.getProduct().getProductType(),
+                new BigDecimal(1),
+                new BigDecimal(1),
+                new BigDecimal(1),
+                new BigDecimal(1)
+        );
     }
     @Override
     public Order addOrder(Order order) {
